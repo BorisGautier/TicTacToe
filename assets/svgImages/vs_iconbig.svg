@@ -1,0 +1,10 @@
+<svg id="vs_iconbig" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="191" height="186.006" viewBox="0 0 191 186.006">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.08" y1="-0.026" x2="0.937" y2="0.861" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ed7a3a"/>
+      <stop offset="0.51" stop-color="#e13a3a"/>
+      <stop offset="1" stop-color="#e18a54"/>
+    </linearGradient>
+  </defs>
+  <path id="vs_iconbig-2" d="M181.52,137.21c3.27,19.97-13.42,47.35-52.92,48.71s-60.97-13.83-60.97-13.83l14.9-26.38s19.83,13.86,43.68,12.81,21.91-14.45,15.35-18.47-24-5.82-36.96-12.37S81.49,112.34,86.11,92.97c.26-1.1.56-2.19.9-3.28L64.05,126.12H29.09L0,0H36.84L54.58,82.97,106.53,0H143.5L101.03,67.42c8.71-7.74,21.24-12.91,38.45-12.75,32.94.3,51.52,10.58,51.52,10.58L177.79,91.93s-18.89-16.05-49.05-8.05c-9.54,2.53-16.39,16.83,8.05,22.2s41.45,11.17,44.73,31.14Z" fill="url(#linear-gradient)"/>
+</svg>
