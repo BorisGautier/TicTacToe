@@ -140,6 +140,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
     FindGame()
       ..joinGame(widget.selected, widget.round).then((Map data) async {
         //--if game created
+        print(data);
 
         if (data['JoinStatus'] == JoinStatus.created) {
           _temp = data["roomKey"];

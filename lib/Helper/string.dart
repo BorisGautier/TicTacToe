@@ -25,47 +25,47 @@ final String price100 = "1000 XAF";
 final String price250 = "2500 XAF";
 
 final Map userSkin = {
-  "DORA Classic": {
+  "Classic": {
     'userSkin': "assets/images/cross_skin.png",
     'opponentSkin': "assets/images/circle_skin.png",
     'price': 0
   },
-  "DORA Plus": {
+  "Plus": {
     'userSkin': "assets/images/plus_skin.png",
     'opponentSkin': "assets/images/circle_skin.png",
     'price': 100
   },
-  "DORA Square": {
+  "Square": {
     'userSkin': "assets/images/square_skin.png",
     'opponentSkin': "assets/images/circle_skin.png",
     'price': 150
   },
-  "DORA Polygon": {
+  "Polygon": {
     'userSkin': "assets/images/polygon_skin.png",
     'opponentSkin': "assets/images/cross_skin.png",
     'price': 150
   },
-  "DORA Hexagon": {
+  "Hexagon": {
     'userSkin': "assets/images/hexagon_skin.png",
     'opponentSkin': "assets/images/cross_skin.png",
     'price': 200
   },
-  "DORA Octagon": {
+  "Octagon": {
     'userSkin': "assets/images/octagon_skin.png",
     'opponentSkin': "assets/images/circle_skin.png",
-    'price': 15000
+    'price': 300
   },
-  "DORA Triangle": {
+  "Triangle": {
     'userSkin': "assets/images/triangle_skin.png",
     'opponentSkin': "assets/images/circle_skin.png",
     'price': 150
   },
-  "DORA Diamond": {
+  "Diamond": {
     'userSkin': "assets/images/diamond_skin.png",
     'opponentSkin': "assets/images/circle_skin.png",
     'price': 150
   },
-  "DORA Offer": {
+  "Offer": {
     'userSkin': "assets/images/cross_skin.png",
     'opponentSkin': "assets/images/octagon_skin.png",
     'price': 0

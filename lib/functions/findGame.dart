@@ -49,13 +49,13 @@ class FindGame {
         var tim = valMap.values.elementAt(i)["time"];
 
         var dif = timeDifferance(tim);
+        print(dif);
         var status = valMap.values.elementAt(i)["status"];
         var player1 = valMap.values.elementAt(i)["player1"]["id"];
         var _entryFee = valMap.values.elementAt(i)["entryFee"];
         var _round = valMap.values.elementAt(i)["round"];
 
-        if (dif == 0 &&
-            player1 != FirebaseAuth.instance.currentUser!.uid &&
+        if (player1 != FirebaseAuth.instance.currentUser!.uid &&
             status == "pending" &&
             _entryFee == entryFee &&
             _round == round) {

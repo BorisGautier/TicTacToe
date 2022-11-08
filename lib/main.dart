@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:tictactoe/Helper/demo_localization.dart';
 import 'package:tictactoe/routes/routes.dart';
 import 'package:tictactoe/screens/splash.dart';

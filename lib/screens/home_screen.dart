@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:io';
 import 'dart:math' as math;
 
@@ -294,7 +296,8 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                   width: MediaQuery.of(context).size.width / 2,
                   child: SlideTransition(
                       position: doraAnimation,
-                      child: Image.asset("assets/images/welcome_dora.png"))),
+                      child:
+                          Image.asset("assets/images/dora_findopponent.png"))),
               GestureDetector(
                 onVerticalDragUpdate: (details) async {
                   int sensitivity = 8;
