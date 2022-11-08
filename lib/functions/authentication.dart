@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, empty_catches
+
 import 'package:tictactoe/Helper/color.dart';
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/Helper/utils.dart';
@@ -83,6 +85,7 @@ class Auth {
       email,
       password,
       username}) async {
+    // ignore: prefer_typing_uninitialized_variables
     var credential, displayName, user;
     Utils localValue = Utils();
     if (platform == "Android" && email == "" && password == "") {
@@ -102,7 +105,7 @@ class Auth {
         await FirebaseAuth.instance
             .signInWithCredential(credential)
             .then((value) {
-          Future.delayed(Duration(seconds: 2)).then((value) {
+          Future.delayed(const Duration(seconds: 2)).then((value) {
             localValue.setSkinValue("user_skin", defaultXskin);
             localValue.setSkinValue("opponent_skin", defaultOskin);
             Navigator.of(context)
@@ -118,9 +121,9 @@ class Auth {
         username != null) {
       //create user with email, password and username
       try {
-        FirebaseAuth _auth = FirebaseAuth.instance;
+        FirebaseAuth auth = FirebaseAuth.instance;
 
-        user = await _auth
+        user = await auth
             .createUserWithEmailAndPassword(email: email, password: password)
             .then((value) async {
           await value.user!.sendEmailVerification().then((value) {
@@ -128,13 +131,13 @@ class Auth {
               content: Text(
                 utils.getTranslated(context, "verifyEmail"),
                 textAlign: TextAlign.center,
-                style: TextStyle(color: primaryColor),
+                style: const TextStyle(color: primaryColor),
               ),
               backgroundColor: white,
               elevation: 1.0,
             ));
-            Navigator.of(context).pushReplacement(
-                CupertinoPageRoute(builder: (context) => LoginWithEmail()));
+            Navigator.of(context).pushReplacement(CupertinoPageRoute(
+                builder: (context) => const LoginWithEmail()));
           });
 
           //Dialoge.loading(context);
@@ -147,9 +150,9 @@ class Auth {
     } else if (email != "" && password != "" && username == "") {
       //login user via email and pasword
       try {
-        var _auth = FirebaseAuth.instance;
+        var auth = FirebaseAuth.instance;
 
-        user = await _auth
+        user = await auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((value) async {
           if (value.user!.emailVerified) {
@@ -162,7 +165,7 @@ class Auth {
               content: Text(
                 utils.getTranslated(context, "verifyEmail"),
                 textAlign: TextAlign.center,
-                style: TextStyle(color: primaryColor),
+                style: const TextStyle(color: primaryColor),
               ),
               backgroundColor: white,
               elevation: 1.0,
@@ -178,7 +181,7 @@ class Auth {
           content: Text(
             e.message.toString(),
             textAlign: TextAlign.center,
-            style: TextStyle(color: primaryColor),
+            style: const TextStyle(color: primaryColor),
           ),
           backgroundColor: white,
           elevation: 1.0,
@@ -186,10 +189,10 @@ class Auth {
         return e.message;
       }
     } else if (platform == "IOS") {
-      final _firebaseAuth = FirebaseAuth.instance;
+      final firebaseAuth = FirebaseAuth.instance;
       final app.AuthorizationResult result =
           await app.TheAppleSignIn.performRequests([
-        user = app.AppleIdRequest(requestedScopes: [
+        user = const app.AppleIdRequest(requestedScopes: [
           app.Scope.email,
           app.Scope.fullName,
         ])
@@ -211,7 +214,7 @@ class Auth {
                 String.fromCharCodes(appleIdCredential.authorizationCode!),
           );
           final authResult =
-              await _firebaseAuth.signInWithCredential(credential);
+              await firebaseAuth.signInWithCredential(credential);
 
           if (authResult.additionalUserInfo!.isNewUser) {
             final user = authResult.user!;
@@ -226,14 +229,14 @@ class Auth {
                     ? "Your name"
                     : "$givenName $familyName");
             await user.reload();
-            displayName = _firebaseAuth.currentUser!.displayName!;
+            displayName = firebaseAuth.currentUser!.displayName!;
           } else {
             displayName = authResult.user!.displayName;
           }
           /*      await firebaseUser!
               .updateDisplayName(appleIdCredential.fullName!.givenName);*/
 
-          Future.delayed(Duration(seconds: 2)).then((value) {
+          Future.delayed(const Duration(seconds: 2)).then((value) {
             localValue.setSkinValue("user_skin", defaultXskin);
             localValue.setSkinValue("opponent_skin", defaultOskin);
             Navigator.of(context)
@@ -316,25 +319,24 @@ class Auth {
             .child("played")
             .once();
         if (historyOfGuest.snapshot.value != null) {
-          Map.from(historyOfGuest.snapshot.value as Map)
-            ..forEach((key, val) {
-              History().update(
-                  uid: FirebaseAuth.instance.currentUser!.uid,
-                  date: val["playedDate"],
-                  gotcoin: val["gotCoin"],
-                  oppornentId: val["oppornentId"],
-                  status: val["playedStatus"],
-                  type: val["type"]);
-            });
+          Map.from(historyOfGuest.snapshot.value as Map).forEach((key, val) {
+            History().update(
+                uid: FirebaseAuth.instance.currentUser!.uid,
+                date: val["playedDate"],
+                gotcoin: val["gotCoin"],
+                oppornentId: val["oppornentId"],
+                status: val["playedStatus"],
+                type: val["type"]);
+          });
         }
         Dialoge.removeChild("gameHistory", guestUserID);
       }
 
       //set users active skins value to sharedpreference
       Utils localValue = Utils();
-      DatabaseReference _userSkinRef;
-      _userSkinRef = FirebaseDatabase.instance.ref().child("userSkins");
-      DatabaseEvent userSkins = await _userSkinRef
+      DatabaseReference userSkinRef;
+      userSkinRef = FirebaseDatabase.instance.ref().child("userSkins");
+      DatabaseEvent userSkins = await userSkinRef
           .child(FirebaseAuth.instance.currentUser!.uid)
           .once();
       Map map = userSkins.snapshot.value as Map;

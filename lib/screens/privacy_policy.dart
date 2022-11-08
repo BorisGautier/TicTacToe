@@ -48,14 +48,15 @@ class StatePrivacy extends State<PrivacyPolicy> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.title == utils.getTranslated(context, "privacy"))
+    if (widget.title == utils.getTranslated(context, "privacy")) {
       htmlText = privacyText;
-    else if (widget.title == utils.getTranslated(context, "termCond"))
+    } else if (widget.title == utils.getTranslated(context, "termCond")) {
       htmlText = termText;
-    else if (widget.title == utils.getTranslated(context, "aboutUs"))
+    } else if (widget.title == utils.getTranslated(context, "aboutUs")) {
       htmlText = aboutText;
-    else if (widget.title == utils.getTranslated(context, "contactUs"))
+    } else if (widget.title == utils.getTranslated(context, "contactUs")) {
       htmlText = contactText;
+    }
 
     return WillPopScope(
         onWillPop: () async {
@@ -66,11 +67,11 @@ class StatePrivacy extends State<PrivacyPolicy> with TickerProviderStateMixin {
             appBar: AppBar(
               centerTitle: true,
               leading: Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(4),
                   onTap: () => Navigator.of(context).pop(),
-                  child: Center(
+                  child: const Center(
                     child: Icon(
                       Icons.arrow_back,
                       size: 30,
@@ -81,7 +82,7 @@ class StatePrivacy extends State<PrivacyPolicy> with TickerProviderStateMixin {
               ),
               title: Text(
                 widget.title!,
-                style: TextStyle(color: primaryColor),
+                style: const TextStyle(color: primaryColor),
               ),
               backgroundColor: white,
             ),

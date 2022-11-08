@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:tictactoe/Helper/color.dart';
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/Helper/string.dart';
@@ -21,7 +23,7 @@ class Skins extends StatefulWidget {
 }
 
 class _SkinsState extends State<Skins> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   DatabaseReference dbRef = FirebaseDatabase.instance.ref();
   late DatabaseEvent usersSkinData;
 
@@ -43,9 +45,9 @@ class _SkinsState extends State<Skins> {
     usersSkinData = await dbRef.child("userSkins").child(userId).once();
     Map? map = usersSkinData.snapshot.value as Map;
     if (usersSkinData.snapshot.value != null) {
-      map.keys.forEach((element) {
+      for (var element in map.keys) {
         purchasedSkin.add(map[element]);
-      });
+      }
     }
     setState(() {});
   }
@@ -86,9 +88,9 @@ class _SkinsState extends State<Skins> {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               height: 70,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: white,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Row(
@@ -100,7 +102,8 @@ class _SkinsState extends State<Skins> {
                           color: Colors.grey.withOpacity(0.4),
                           spreadRadius: 2,
                           blurRadius: 4,
-                          offset: Offset(4, 4), // changes position of shadow
+                          offset:
+                              const Offset(4, 4), // changes position of shadow
                         ),
                       ],
                     ),
@@ -112,19 +115,20 @@ class _SkinsState extends State<Skins> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Container(
-                      child: Image.asset(
-                        opponentSkin,
-                        height: 20,
-                      ),
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.4),
                             spreadRadius: 2,
                             blurRadius: 4,
-                            offset: Offset(4, 4), // changes position of shadow
+                            offset: const Offset(
+                                4, 4), // changes position of shadow
                           ),
                         ],
+                      ),
+                      child: Image.asset(
+                        opponentSkin,
+                        height: 20,
                       ),
                     ),
                   ),
@@ -144,15 +148,15 @@ class _SkinsState extends State<Skins> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           InkWell(
             child: Container(
               width: MediaQuery.of(context).size.width * 0.20,
               height: 70,
-              padding: EdgeInsets.all(2.0),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.all(2.0),
+              decoration: const BoxDecoration(
                   color: red,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Column(
@@ -168,14 +172,14 @@ class _SkinsState extends State<Skins> {
                                 ? Text(
                                     utils.getTranslated(
                                         context, "currentlyUsing"),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 12,
                                     ),
                                     textAlign: TextAlign.center,
                                   )
                                 : Text(
                                     utils.getTranslated(context, "useNow"),
-                                    style: TextStyle(fontSize: 12),
+                                    style: const TextStyle(fontSize: 12),
                                     textAlign: TextAlign.center,
                                   )
                           ],
@@ -186,42 +190,40 @@ class _SkinsState extends State<Skins> {
                                   ? Text(
                                       utils.getTranslated(
                                           context, "currentlyUsing"),
-                                      style: TextStyle(fontSize: 12),
+                                      style: const TextStyle(fontSize: 12),
                                       textAlign: TextAlign.center,
                                     )
                                   : Text(
                                       utils.getTranslated(context, "useNow"),
-                                      style: TextStyle(fontSize: 12),
+                                      style: const TextStyle(fontSize: 12),
                                       textAlign: TextAlign.center,
                                     ),
                             )
-                          : Container(
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "assets/images/coin_symbol.png",
-                                        height: 14,
-                                      ),
-                                      Text(
-                                        " ${price.toString()}",
-                                        style: TextStyle(
-                                            color: white, fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                  Text(
-                                    utils.getTranslated(context, "buyNow"),
-                                    style: TextStyle(fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                    softWrap: true,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                ],
-                              ),
+                          : Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/coin_symbol.png",
+                                      height: 14,
+                                    ),
+                                    Text(
+                                      " ${price.toString()}",
+                                      style: const TextStyle(
+                                          color: white, fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  utils.getTranslated(context, "buyNow"),
+                                  style: const TextStyle(fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                  softWrap: true,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                )
+                              ],
                             ),
                 ],
               ),
@@ -240,7 +242,7 @@ class _SkinsState extends State<Skins> {
                       return Alert(
                         title: Text(
                           utils.getTranslated(context, "aleart"),
-                          style: TextStyle(color: white),
+                          style: const TextStyle(color: white),
                         ),
                         isMultipleAction: true,
                         defaultActionButtonName:
@@ -248,7 +250,7 @@ class _SkinsState extends State<Skins> {
                         onTapActionButton: () {},
                         content: Text(
                           utils.getTranslated(context, "areYouSure"),
-                          style: TextStyle(color: white),
+                          style: const TextStyle(color: white),
                         ),
                         multipleAction: [
                           TextButton(
@@ -264,7 +266,7 @@ class _SkinsState extends State<Skins> {
                                 setState(() {});
                               },
                               child: Text(utils.getTranslated(context, "yes"),
-                                  style: TextStyle(color: white))),
+                                  style: const TextStyle(color: white))),
                           TextButton(
                               style: ButtonStyle(
                                   backgroundColor:
@@ -274,7 +276,7 @@ class _SkinsState extends State<Skins> {
                                 Navigator.pop(context);
                               },
                               child: Text(utils.getTranslated(context, "no"),
-                                  style: TextStyle(color: white)))
+                                  style: const TextStyle(color: white)))
                         ],
                       );
                     });
@@ -334,7 +336,7 @@ class _SkinsState extends State<Skins> {
     //add coin debit transaction to history
     History().update(
         uid: FirebaseAuth.instance.currentUser!.uid,
-        date: "${DateTime.now().toString()}",
+        date: DateTime.now().toString(),
         gotcoin: -price,
         oppornentId: "",
         status: "Skin Purchased",
@@ -363,7 +365,7 @@ class _SkinsState extends State<Skins> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8.0),
-                child: Text("${utils.getTranslated(context, "skins")}"),
+                child: Text(utils.getTranslated(context, "skins")),
               ),
             ],
           ),

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
+
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/Helper/utils.dart';
 import 'package:tictactoe/screens/multiplayer.dart';
@@ -35,7 +37,7 @@ class Multiplayer {
     int called = 0;
     String? winner = "0";
     var tieCalled = 0;
-    int _count = 0;
+    int count = 0;
 
     for (var j = 0; j < winningCondition.length; j++) {
       if (buttons[winningCondition[j][0]]["player"] ==
@@ -58,10 +60,10 @@ class Multiplayer {
     }
     for (int i = 0; i < buttons.length; i++) {
       if (buttons[i]["player"] != "0") {
-        _count++;
+        count++;
       }
     }
-    if (_count == 9 && winner == "0" && tieCalled == 0) {
+    if (count == 9 && winner == "0" && tieCalled == 0) {
       tieCalled++;
       music.play(tiegame);
 

@@ -1,30 +1,21 @@
+// ignore_for_file: file_names
+
 class CreateGame {
   final String? player1;
   final String? tryy;
   final int? entryfee;
   final int? round;
 
-  const CreateGame({
-    this.player1,
-    this.tryy,
-    this.entryfee,
-    this.round
-  });
-
-
-
+  const CreateGame({this.player1, this.tryy, this.entryfee, this.round});
 
   Map toMap() {
     return {
-      "player1": {
-        "id": player1,
-        "won": 0
-      },
+      "player1": {"id": player1, "won": 0},
       "try": tryy,
       //"time": DateTime.now().toIso8601String(),
       "time": DateTime.now().toString(),
       "entryFee": entryfee,
-      "round":round,
+      "round": round,
       "buttons": {
         "0": {
           "state": "",

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/Helper/utils.dart';
 import 'package:flutter/material.dart';

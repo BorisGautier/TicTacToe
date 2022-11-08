@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables, empty_catches, use_build_context_synchronously
+
 import 'dart:math';
 
 import 'package:tictactoe/Helper/color.dart';
@@ -15,7 +17,10 @@ class SinglePlayerScreenActivity extends StatefulWidget {
   final String? playerSkin, doraSkin;
   final int? levelType;
 
-  SinglePlayerScreenActivity(this.playerSkin, this.doraSkin, this.levelType);
+  const SinglePlayerScreenActivity(
+      this.playerSkin, this.doraSkin, this.levelType,
+      {Key? key})
+      : super(key: key);
 
   @override
   _SinglePlayerScreenActivityState createState() =>
@@ -24,7 +29,7 @@ class SinglePlayerScreenActivity extends StatefulWidget {
 
 class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
     with ChangeNotifier {
-  CountDownController _countDownPlayer = CountDownController();
+  final CountDownController _countDownPlayer = CountDownController();
   String? player;
 
   String gameStatus = "";
@@ -33,7 +38,7 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
   int calledCount = 0;
   int tieCalled = 0;
   Utils u = Utils();
-  Map buttons = Map();
+  Map buttons = {};
   late Random rnd;
   String? currentMove, _profilePic = "", _username = "";
 
@@ -88,11 +93,6 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
     super.didChangeDependencies();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void check() {
     for (var i = 0; i < buttons.length; i++) {
       for (var j = 0; j < utils.winningCondition.length; j++) {
@@ -108,19 +108,19 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
           calledCount += 1;
           setState(() {});
         } else {
-          int _count = 0;
+          int count = 0;
           for (var k = 0; k < buttons.length; k++) {
             if (buttons[k]["state"] != "" && winner == "0") {
-              _count++;
+              count++;
             }
-            if (_count == 9) {
+            if (count == 9) {
               gameStatus = "tie";
 
               tieCalled += 1;
             }
           }
 
-          if (_count == 9 && tieCalled == 1 && winner == "0") {
+          if (count == 9 && tieCalled == 1 && winner == "0") {
             if (mounted) {
               setState(() {});
             }
@@ -129,9 +129,8 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
 
             Future.delayed(const Duration(seconds: 1)).then((value) {
               if (winner == "0" && gameStatus == "tie") {
-                Dialoge()
-                  ..tie(context, "Singleplayer", "", "", widget.playerSkin,
-                      widget.doraSkin, widget.levelType);
+                Dialoge().tie(context, "Singleplayer", "", "",
+                    widget.playerSkin, widget.doraSkin, widget.levelType);
               }
               _countDownPlayer.pause();
               setState(() {});
@@ -348,14 +347,14 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
           return Alert(
             title: Text(
               utils.getTranslated(context, "aleart"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
             isMultipleAction: true,
             defaultActionButtonName: utils.getTranslated(context, "ok"),
             onTapActionButton: () {},
             content: Text(
               utils.getTranslated(context, "areYouSure"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
             multipleAction: [
               TextButton(
@@ -367,7 +366,7 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
                     Navigator.popUntil(context, ModalRoute.withName("/home"));
                   },
                   child: Text(utils.getTranslated(context, "ok"),
-                      style: TextStyle(color: white))),
+                      style: const TextStyle(color: white))),
               TextButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(color)),
@@ -377,7 +376,7 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
                     Navigator.pop(context);
                   },
                   child: Text(utils.getTranslated(context, "cancle"),
-                      style: TextStyle(color: white)))
+                      style: const TextStyle(color: white)))
             ],
           );
         });
@@ -411,7 +410,8 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
                             strokeWidth: 3,
                             controller: _countDownPlayer,
                             textFormat: CountdownTextFormat.S,
-                            textStyle: TextStyle(color: white, fontSize: 10),
+                            textStyle:
+                                const TextStyle(color: white, fontSize: 10),
                             // autoStart: player == "X" ? true : false,
                             isReverse: true,
                             initialDuration: 0,
@@ -441,66 +441,64 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
                         ],
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
-                        padding: EdgeInsets.only(),
+                        padding: const EdgeInsets.only(),
                         onPressed: () {
                           showQuitGameDialog();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.logout,
                           color: back,
                         )),
                   ],
                 ),
                 Expanded(
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: Center(
-                        child: Stack(
-                          children: [
-                            GridView.builder(
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 0,
-                                      mainAxisSpacing: 0),
-                              itemCount: 9,
-                              itemBuilder: (context, i) {
-                                return GestureDetector(
-                                  onTap: () async {
-                                    await Future.delayed(
-                                        Duration(milliseconds: 500));
-                                    if (gameStatus == "started" &&
-                                        currentMove ==
-                                            utils.getTranslated(
-                                                context, "yourTurn")) {
-                                      playGame(i);
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/grid_box.png"),
-                                            fit: BoxFit.fill)),
-                                    child: buttons[i]['state'] == ""
-                                        ? Container()
-                                        : Image.asset(
-                                            utils.returnImage(
-                                                i,
-                                                buttons,
-                                                widget.playerSkin,
-                                                widget.doraSkin),
-                                          ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Center(
+                      child: Stack(
+                        children: [
+                          GridView.builder(
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 0,
+                                    mainAxisSpacing: 0),
+                            itemCount: 9,
+                            itemBuilder: (context, i) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 500));
+                                  if (gameStatus == "started" &&
+                                      currentMove ==
+                                          utils.getTranslated(
+                                              context, "yourTurn")) {
+                                    playGame(i);
+                                  }
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/grid_box.png"),
+                                          fit: BoxFit.fill)),
+                                  child: buttons[i]['state'] == ""
+                                      ? Container()
+                                      : Image.asset(
+                                          utils.returnImage(
+                                              i,
+                                              buttons,
+                                              widget.playerSkin,
+                                              widget.doraSkin),
+                                        ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -542,7 +540,7 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
                                 ),
                                 Text(
                                   "${utils.limitChar(_username!, 7)}",
-                                  style: TextStyle(color: white),
+                                  style: const TextStyle(color: white),
                                 ),
                               ],
                             ),
@@ -569,12 +567,12 @@ class _SinglePlayerScreenActivityState extends State<SinglePlayerScreenActivity>
                               ),
                               Text(
                                 utils.getTranslated(context, "dora"),
-                                style: TextStyle(color: white),
+                                style: const TextStyle(color: white),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.transparent,
                               backgroundImage: AssetImage(

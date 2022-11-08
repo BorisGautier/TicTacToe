@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:io';
 
 import 'package:tictactoe/Helper/color.dart';
@@ -34,7 +36,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     getSignInDora(),
-                    SizedBox(
+                    const SizedBox(
                       height: 30.0,
                     ),
                     Expanded(
@@ -76,8 +78,8 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
                               onPressed: () {
                                 Navigator.pop(context);
                               },
-                              icon:
-                                  Icon(Icons.arrow_back_ios_outlined, size: 30),
+                              icon: const Icon(Icons.arrow_back_ios_outlined,
+                                  size: 30),
                             ),
                           ),
                         ))
@@ -107,7 +109,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
       child: TextFormField(
         keyboardType: TextInputType.text,
 
-        style: TextStyle(
+        style: const TextStyle(
           color: primaryColor,
           fontWeight: FontWeight.normal,
         ),
@@ -123,7 +125,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
         },
 
         decoration: InputDecoration(
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.email_outlined,
             color: primaryColor,
             size: 20,
@@ -160,7 +162,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
       child: TextFormField(
         keyboardType: TextInputType.text,
 
-        style: TextStyle(
+        style: const TextStyle(
           color: primaryColor,
           fontWeight: FontWeight.normal,
         ),
@@ -177,7 +179,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
           username = value;
         },
         decoration: InputDecoration(
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.person_outlined,
             color: primaryColor,
             size: 20,
@@ -216,7 +218,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
         obscuringCharacter: "*",
         keyboardType: TextInputType.text,
         //controller: mobileController,
-        style: TextStyle(
+        style: const TextStyle(
           color: primaryColor,
           fontWeight: FontWeight.normal,
         ),
@@ -231,7 +233,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
           password = value;
         },
         decoration: InputDecoration(
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.lock_outlined,
             color: primaryColor,
             size: 20,
@@ -290,7 +292,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
         obscuringCharacter: "*",
         keyboardType: TextInputType.text,
         //controller: mobileController,
-        style: TextStyle(
+        style: const TextStyle(
           color: primaryColor,
           fontWeight: FontWeight.normal,
         ),
@@ -302,7 +304,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
             return utils.getTranslated(context, "confirmPasswordRequired");
           }
           if (value != password) {
-            return "${utils.getTranslated(context, "passwordDoesntMatch")}";
+            return utils.getTranslated(context, "passwordDoesntMatch");
           } else {
             return null;
           }
@@ -311,7 +313,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
           comfirmpass = value;
         },
         decoration: InputDecoration(
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.lock_outlined,
             color: primaryColor,
             size: 20,
@@ -376,7 +378,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
             child: Center(
                 child: Text(
               utils.getTranslated(context, "signUp"),
-              style: TextStyle(color: primaryColor, fontSize: 20),
+              style: const TextStyle(color: primaryColor, fontSize: 20),
               overflow: TextOverflow.ellipsis,
             )),
           ),
@@ -411,7 +413,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
       content: Text(
         message,
         textAlign: TextAlign.center,
-        style: TextStyle(color: primaryColor),
+        style: const TextStyle(color: primaryColor),
       ),
       backgroundColor: white,
       elevation: 1.0,
@@ -431,7 +433,7 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Text(utils.getTranslated(context, "signUp"),
-          style: TextStyle(color: lightWhite, fontSize: 20)),
+          style: const TextStyle(color: lightWhite, fontSize: 20)),
     );
   }
 
@@ -442,15 +444,17 @@ class _SigninWithEmailState extends State<SignInWithEmail> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(utils.getTranslated(context, "HaveAnAccount"),
-              style: TextStyle(color: lightWhite)),
+              style: const TextStyle(color: lightWhite)),
           InkWell(
             child: Text(
               " ${utils.getTranslated(context, "signIn")}",
-              style: TextStyle(decoration: TextDecoration.underline),
+              style: const TextStyle(decoration: TextDecoration.underline),
             ),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  CupertinoPageRoute(builder: (context) => LoginWithEmail()));
+              Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => const LoginWithEmail()));
             },
           ),
         ],

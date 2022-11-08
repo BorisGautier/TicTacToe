@@ -1,8 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class GetUserInfo {
-  FirebaseDatabase _db = FirebaseDatabase.instance;
+  final FirebaseDatabase _db = FirebaseDatabase.instance;
 
   getCoin() async {
     DatabaseEvent snap = await _db
@@ -54,19 +56,19 @@ class GetUserInfo {
   }
 
   Future detectChange(String field, Function(dynamic value) callBack) async {
-    dynamic _coin = 0;
+    dynamic coin = 0;
     _db
         .ref()
         .child("users")
         .child(FirebaseAuth.instance.currentUser!.uid)
         .onChildChanged
         .listen((DatabaseEvent ev) {
-      if (ev.snapshot.key == "$field") {
-        _coin = ev.snapshot.value;
+      if (ev.snapshot.key == field) {
+        coin = ev.snapshot.value;
 
         callBack(ev.snapshot.value);
       }
     });
-    return _coin;
+    return coin;
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+
 class GameHistoryModal {
   final uid;
   final oppornentId;
@@ -17,11 +19,11 @@ class GameHistoryModal {
       this.type});
   Map toMap() {
     return {
-      "oppornentId": this.oppornentId,
-      "playedStatus": this.playedStatus,
-      "playedDate": this.playedDate,
-      "gotCoin": this.gotCoin,
-      "type": this.type
+      "oppornentId": oppornentId,
+      "playedStatus": playedStatus,
+      "playedDate": playedDate,
+      "gotCoin": gotCoin,
+      "type": type
     };
   }
 }

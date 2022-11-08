@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:io';
 
 import 'package:tictactoe/Helper/color.dart';
@@ -42,7 +44,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   getSignInDora(),
-                  SizedBox(
+                  const SizedBox(
                     height: 30.0,
                   ),
                   Expanded(
@@ -87,7 +89,8 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          icon: Icon(Icons.arrow_back_ios_outlined, size: 30),
+                          icon: const Icon(Icons.arrow_back_ios_outlined,
+                              size: 30),
                         ),
                       ),
                     ))
@@ -112,7 +115,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
         alignment: Alignment.bottomRight,
         child: InkWell(
           child: Text(utils.getTranslated(context, "forgotPassword"),
-              style: TextStyle(color: lightWhite)),
+              style: const TextStyle(color: lightWhite)),
           onTap: () async {
             final emailField = _emailFieldKey.currentState!;
             emailField.save();
@@ -145,7 +148,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
         key: _emailFieldKey,
         keyboardType: TextInputType.text,
 
-        style: TextStyle(
+        style: const TextStyle(
           color: primaryColor,
           fontWeight: FontWeight.normal,
         ),
@@ -160,7 +163,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
           email = value;
         },
         decoration: InputDecoration(
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.email_outlined,
             color: primaryColor,
             size: 20,
@@ -199,7 +202,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
         obscuringCharacter: "*",
         keyboardType: TextInputType.text,
         //controller: mobileController,
-        style: TextStyle(
+        style: const TextStyle(
           color: primaryColor,
           fontWeight: FontWeight.normal,
         ),
@@ -213,7 +216,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
           password = value;
         },
         decoration: InputDecoration(
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.lock_outlined,
             color: primaryColor,
             size: 20,
@@ -263,7 +266,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
 
   Widget getLoginOptions() {
     return Container(
-      padding: EdgeInsets.only(top: 10.0),
+      padding: const EdgeInsets.only(top: 10.0),
       width: MediaQuery.of(context).size.width * 0.85,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -365,15 +368,17 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(utils.getTranslated(context, "newAccount"),
-              style: TextStyle(color: lightWhite)),
+              style: const TextStyle(color: lightWhite)),
           InkWell(
             child: Text(
               utils.getTranslated(context, "register"),
-              style: TextStyle(decoration: TextDecoration.underline),
+              style: const TextStyle(decoration: TextDecoration.underline),
             ),
             onTap: () {
-              Navigator.pushReplacement(context,
-                  CupertinoPageRoute(builder: (context) => SignInWithEmail()));
+              Navigator.pushReplacement(
+                  context,
+                  CupertinoPageRoute(
+                      builder: (context) => const SignInWithEmail()));
             },
           ),
         ],
@@ -404,7 +409,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Text(utils.getTranslated(context, "signIn"),
-          style: TextStyle(color: lightWhite, fontSize: 20)),
+          style: const TextStyle(color: lightWhite, fontSize: 20)),
     );
   }
 
@@ -412,7 +417,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0),
       child: Text(utils.getTranslated(context, "or"),
-          style: TextStyle(color: lightWhite)),
+          style: const TextStyle(color: lightWhite)),
     );
   }
 
@@ -430,7 +435,7 @@ class _LoginWithEmailState extends State<LoginWithEmail> {
             child: Center(
                 child: Text(
               utils.getTranslated(context, "signIn"),
-              style: TextStyle(color: primaryColor, fontSize: 20),
+              style: const TextStyle(color: primaryColor, fontSize: 20),
               overflow: TextOverflow.ellipsis,
             )),
           ),

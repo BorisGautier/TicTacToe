@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables, empty_catches, avoid_single_cascade_in_expression_statements, no_leading_underscores_for_local_identifiers, use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:tictactoe/Helper/color.dart';
@@ -19,7 +21,8 @@ class FindingPlayerScreen extends StatefulWidget {
   final int? selected;
   final int? round;
 
-  FindingPlayerScreen({this.selected, this.round});
+  const FindingPlayerScreen({Key? key, this.selected, this.round})
+      : super(key: key);
 
   @override
   _FindingPlayerScreenState createState() => _FindingPlayerScreenState();
@@ -27,8 +30,8 @@ class FindingPlayerScreen extends StatefulWidget {
 
 class _FindingPlayerScreenState extends State<FindingPlayerScreen>
     with ChangeNotifier {
-  FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseDatabase _ins = FirebaseDatabase.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseDatabase _ins = FirebaseDatabase.instance;
   String? _profilePic;
   String? _displayName;
   String? _opporentName;
@@ -140,7 +143,6 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
     FindGame()
       ..joinGame(widget.selected, widget.round).then((Map data) async {
         //--if game created
-        print(data);
 
         if (data['JoinStatus'] == JoinStatus.created) {
           _temp = data["roomKey"];
@@ -226,7 +228,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
 
           firstuid = getFirstTryId.snapshot.value;
 
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(const Duration(seconds: 1));
           if (details != null) {
             _opporentName = details["username"];
             _opporentPic = details["profilePic"];
@@ -264,7 +266,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
 
     updateCoinMinus();
 
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context) {
         return MultiplayerScreen(
           oppornentName: _opporentName,
@@ -333,7 +335,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                 child: Column(
                   children: [
                     //find opponent image
-                    Container(
+                    SizedBox(
                         height: MediaQuery.of(context).size.height * 0.5,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -378,7 +380,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                                                       ? null
                                                       : NetworkImage(
                                                           _profilePic!)))),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                 ],
@@ -415,7 +417,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                                                         "" &&
                                                     canUpdateUi == true
                                                 ? null
-                                                : Center(
+                                                : const Center(
                                                     child: Text(
                                                     "?",
                                                     style: TextStyle(
@@ -439,7 +441,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                                       left: 10.0, top: 10.0),
                                   child: Text(
                                     "$_displayName \n",
-                                    style: TextStyle(color: white),
+                                    style: const TextStyle(color: white),
                                     textAlign: TextAlign.center,
                                     maxLines: 2,
                                     softWrap: true,
@@ -459,7 +461,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                                           canUpdateUi == true
                                       ? "${oppositPlayerName.value} \n"
                                       : "$opponentPlayerName \n",
-                                  style: TextStyle(color: white),
+                                  style: const TextStyle(color: white),
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
                                   softWrap: true,
@@ -476,7 +478,7 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                         CupertinoButton(
                             padding: EdgeInsets.zero,
                             child: Container(
-                                padding: EdgeInsets.symmetric(
+                                padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
@@ -514,7 +516,8 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                                 });
                                 findGame();
                                 oppTimer!.cancel();
-                                oppTimer = Timer(Duration(seconds: 60), () {
+                                oppTimer =
+                                    Timer(const Duration(seconds: 60), () {
                                   if (_temp != null) {
                                     Dialoge.removeChild("Game", _temp);
                                   }

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables, use_build_context_synchronously, avoid_print, empty_catches
+
 import 'dart:async';
 import 'dart:io';
 
@@ -150,7 +152,7 @@ class _ShopActivityState extends State<ShopActivity> {
               Image.asset(coinList[i].icon),
               Text(
                 coinList[i].name,
-                style: TextStyle(color: primaryColor),
+                style: const TextStyle(color: primaryColor),
                 maxLines: 1,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
@@ -158,8 +160,8 @@ class _ShopActivityState extends State<ShopActivity> {
               ),
               Text(
                 coinList[i].desc,
-                style:
-                    TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    color: primaryColor, fontWeight: FontWeight.bold),
                 maxLines: 1,
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
@@ -174,7 +176,6 @@ class _ShopActivityState extends State<ShopActivity> {
           if (wantGoogleAd) {
             await getADDisplay().then((value) async {
               if (value) {
-                print(ins.toString());
                 if (ins != null) {
                   if (wantGoogleAd) {
                     ins.show(onUserEarnedReward:
@@ -196,7 +197,7 @@ class _ShopActivityState extends State<ShopActivity> {
                           .ref()
                           .child("adLimit")
                           .child(FirebaseAuth.instance.currentUser!.uid)
-                          .update({"$today": count + 1});
+                          .update({today: count + 1});
                     });
                   }
                 } else {
@@ -204,7 +205,7 @@ class _ShopActivityState extends State<ShopActivity> {
                       backgroundColor: secondarySelectedColor,
                       content: Text(
                         utils.getTranslated(context, "adNotLoaded"),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: primaryColor, fontWeight: FontWeight.bold),
                       )));
                 }
@@ -213,7 +214,7 @@ class _ShopActivityState extends State<ShopActivity> {
                     backgroundColor: secondarySelectedColor,
                     content: Text(
                       utils.getTranslated(context, "youReachedAtTodaysAdLimit"),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                     )));
               }
@@ -246,7 +247,7 @@ class _ShopActivityState extends State<ShopActivity> {
                                   .ref()
                                   .child("adLimit")
                                   .child(FirebaseAuth.instance.currentUser!.uid)
-                                  .update({"$today": count + 1});
+                                  .update({today: count + 1});
 
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
@@ -254,14 +255,14 @@ class _ShopActivityState extends State<ShopActivity> {
                                       content: Text(
                                         utils.getTranslated(context,
                                             "rewardAmountAddedSuccessfully"),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold),
                                       )));
                             }, // loadAd(),
                             onFailed: (placementId, error, message) {
                               ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                       backgroundColor: secondarySelectedColor,
                                       content: Text(
                                         "error while loading ad",
@@ -284,7 +285,7 @@ class _ShopActivityState extends State<ShopActivity> {
                     backgroundColor: secondarySelectedColor,
                     content: Text(
                       utils.getTranslated(context, "youReachedAtTodaysAdLimit"),
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.black, fontWeight: FontWeight.bold),
                     )));
               }
@@ -293,7 +294,7 @@ class _ShopActivityState extends State<ShopActivity> {
         } else {
           IAPItem item = _items[i];
           curItem = i;
-          this._requestPurchase(item);
+          _requestPurchase(item);
         }
       },
     );
@@ -307,14 +308,15 @@ class _ShopActivityState extends State<ShopActivity> {
             title: Center(
               child: Text(
                 utils.getTranslated(context, "congratulations"),
-                style: TextStyle(color: white),
+                style: const TextStyle(color: white),
               ),
             ),
             backgroundColor: primaryColor,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             content: Text("You got $coins",
-                textAlign: TextAlign.center, style: TextStyle(color: white)),
+                textAlign: TextAlign.center,
+                style: const TextStyle(color: white)),
           );
         });
   }
@@ -350,18 +352,15 @@ class _ShopActivityState extends State<ShopActivity> {
           testDeviceIds: ["76E93F010B591E281F371BEB6B05C0E0"]));
       RewardedAd.load(
           adUnitId: rewardedAdID,
-          request: AdRequest(),
+          request: const AdRequest(),
           rewardedAdLoadCallback: RewardedAdLoadCallback(
             onAdLoaded: (RewardedAd ad) {
-              print("ad is ${ad.responseInfo}");
               setState(() {
                 isLoaded = true;
                 ins = ad;
               });
             },
-            onAdFailedToLoad: (LoadAdError error) {
-              print("failed to load $error");
-            },
+            onAdFailedToLoad: (LoadAdError error) {},
           ));
     }
   }
@@ -393,7 +392,7 @@ class _ShopActivityState extends State<ShopActivity> {
           .ref()
           .child("adLimit")
           .child(FirebaseAuth.instance.currentUser!.uid)
-          .update({"$today": 0});
+          .update({today: 0});
 
       return true;
     } else {
@@ -425,11 +424,11 @@ class _ShopActivityState extends State<ShopActivity> {
     List<IAPItem> items =
         await FlutterInappPurchase.instance.getProducts(_productLists);
     for (var item in items) {
-      this._items.add(item);
+      _items.add(item);
     }
 
     setState(() {
-      this._items = items;
+      _items = items;
     });
   }
 
@@ -462,7 +461,7 @@ class _ShopActivityState extends State<ShopActivity> {
   }
 
   void deleteOldAdLimitData() async {
-    Map? adValues = new Map();
+    Map? adValues = {};
     FirebaseDatabase db = FirebaseDatabase.instance;
     var today = time();
     DatabaseEvent once = await db

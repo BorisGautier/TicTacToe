@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, file_names
+
 import 'dart:async';
 import 'dart:math' as f;
 
@@ -6,8 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class FindGame {
-  FirebaseDatabase _ins = FirebaseDatabase.instance;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseDatabase _ins = FirebaseDatabase.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   createGames(entryFee, round) {
     var game = _ins.ref().child("Game").push();
@@ -52,13 +54,13 @@ class FindGame {
         print(dif);
         var status = valMap.values.elementAt(i)["status"];
         var player1 = valMap.values.elementAt(i)["player1"]["id"];
-        var _entryFee = valMap.values.elementAt(i)["entryFee"];
-        var _round = valMap.values.elementAt(i)["round"];
+        var entryFee = valMap.values.elementAt(i)["entryFee"];
+        var round = valMap.values.elementAt(i)["round"];
 
         if (player1 != FirebaseAuth.instance.currentUser!.uid &&
             status == "pending" &&
-            _entryFee == entryFee &&
-            _round == round) {
+            entryFee == entryFee &&
+            round == round) {
           gameAvailable = true;
           roomKey = valMap.keys.elementAt(i);
           oppornentKey = player1;

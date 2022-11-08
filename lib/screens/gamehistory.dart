@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages, use_key_in_widget_constructors, prefer_final_fields
+
 import 'package:tictactoe/Helper/color.dart';
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/Helper/utils.dart';
@@ -30,7 +32,8 @@ class GameHistoryState extends State<GameHistory> {
   @override
   void initState() {
     todaysDate = substractDate(DateTime.now());
-    yesterdaysDate = substractDate(DateTime.now().subtract(Duration(days: 1)));
+    yesterdaysDate =
+        substractDate(DateTime.now().subtract(const Duration(days: 1)));
     Advertisement.loadAd();
     getUserScore();
     super.initState();
@@ -62,7 +65,7 @@ class GameHistoryState extends State<GameHistory> {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Text(
-              "${historyData[i]!["gotCoin"].toString()}",
+              historyData[i]!["gotCoin"].toString(),
               style: TextStyle(
                   color: i % 2 == 0 ? primaryColor : secondarySelectedColor),
               textAlign: TextAlign.start,
@@ -74,7 +77,7 @@ class GameHistoryState extends State<GameHistory> {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Text(
-              "${historyData[i]!["playedStatus"].toString()}",
+              historyData[i]!["playedStatus"].toString(),
               style: TextStyle(
                   color: i % 2 == 0 ? primaryColor : secondarySelectedColor),
               textAlign: TextAlign.center,
@@ -86,6 +89,7 @@ class GameHistoryState extends State<GameHistory> {
           child: Padding(
             padding: const EdgeInsets.all(5.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   substractDate(DateTime.parse(historyData[i]!["playedDate"])),
@@ -105,7 +109,6 @@ class GameHistoryState extends State<GameHistory> {
                   maxLines: 1,
                 ),
               ],
-              crossAxisAlignment: CrossAxisAlignment.end,
             ),
           ),
         ),
@@ -125,7 +128,7 @@ class GameHistoryState extends State<GameHistory> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               music.play(click);
               Navigator.of(context).pop();
@@ -148,7 +151,7 @@ class GameHistoryState extends State<GameHistory> {
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.1,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: primaryColor,
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(40),
@@ -163,26 +166,26 @@ class GameHistoryState extends State<GameHistory> {
                       children: [
                         Text(
                           matchPlayed,
-                          style: TextStyle(color: white),
+                          style: const TextStyle(color: white),
                         ),
                         Text(
                           utils.getTranslated(context, "matchPlayed"),
-                          style: TextStyle(color: white),
+                          style: const TextStyle(color: white),
                         ),
                       ],
                     ),
-                    Expanded(child: Coin()),
+                    const Expanded(child: Coin()),
                     DropdownButton(
                       iconEnabledColor: white,
                       underline: Container(),
                       dropdownColor: secondaryColor,
-                      style: TextStyle(color: white),
+                      style: const TextStyle(color: white),
                       value: selectedDropdownvalue,
                       items: ['All', 'Today', 'Yesterday']
                           .map<DropdownMenuItem<String>>((value) {
                         return DropdownMenuItem<String>(
-                          child: Text(value),
                           value: value,
+                          child: Text(value),
                         );
                       }).toList(),
                       onTap: () {
@@ -214,15 +217,15 @@ class GameHistoryState extends State<GameHistory> {
                   child: Row(
                     children: [
                       Text(
-                        "${utils.getTranslated(context, "transaction")}",
-                        style: TextStyle(
+                        utils.getTranslated(context, "transaction"),
+                        style: const TextStyle(
                           color: white,
                         ),
                       ),
                       Expanded(
                         child: Text(
                           utils.getTranslated(context, "status"),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: white,
                           ),
                           textAlign: TextAlign.center,
@@ -234,17 +237,17 @@ class GameHistoryState extends State<GameHistory> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              "${utils.getTranslated(context, "dateTime")}",
-                              style: TextStyle(
+                              utils.getTranslated(context, "dateTime"),
+                              style: const TextStyle(
                                 color: white,
                               ),
                             ),
                             sortAs == true
-                                ? Icon(
+                                ? const Icon(
                                     Icons.arrow_drop_down,
                                     color: white,
                                   )
-                                : Icon(Icons.arrow_drop_up, color: white)
+                                : const Icon(Icons.arrow_drop_up, color: white)
                           ],
                         ),
                         onTap: () {
@@ -277,13 +280,13 @@ class GameHistoryState extends State<GameHistory> {
             Expanded(
               child: Container(
                   //height: MediaQuery.of(context).size.height * 0.7,
-                  child: historyData.length == 0
+                  child: historyData.isEmpty
                       ? datafound == ""
-                          ? Center(child: CircularProgressIndicator())
+                          ? const Center(child: CircularProgressIndicator())
                           : Center(
                               child: Text(
                               utils.getTranslated(context, "noHistoryFound"),
-                              style: TextStyle(color: primaryColor),
+                              style: const TextStyle(color: primaryColor),
                             ))
                       : ListView(
                           children: [
@@ -292,7 +295,7 @@ class GameHistoryState extends State<GameHistory> {
                                   const EdgeInsets.symmetric(horizontal: 25.0),
                               child: Table(
                                 border: TableBorder.symmetric(
-                                    inside: BorderSide(
+                                    inside: const BorderSide(
                                   color: primaryColor,
                                   width: 0.3,
                                 )),
@@ -320,7 +323,7 @@ class GameHistoryState extends State<GameHistory> {
 
     if (databaseEvent.snapshot.value != null) {
       Map? map = databaseEvent.snapshot.value as Map;
-      map.keys.forEach((element) {
+      for (var element in map.keys) {
         String date = substractDate(DateTime.parse(map[element]["playedDate"]));
 
         if (filter == "All") {
@@ -336,7 +339,7 @@ class GameHistoryState extends State<GameHistory> {
             historyData.add(map[element]);
           }
         }
-      });
+      }
 
       historyData.sort((a, b) {
         var adate = a!['playedDate'];
@@ -344,7 +347,7 @@ class GameHistoryState extends State<GameHistory> {
 
         return adate.compareTo(bdate);
       });
-      if (historyData.length == 0) {
+      if (historyData.isEmpty) {
         datafound = "No";
       }
       rowsData();

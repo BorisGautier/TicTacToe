@@ -31,7 +31,7 @@ class Dialoge {
               child: AlertDialog(
                 backgroundColor: Colors.transparent,
                 content: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -49,7 +49,7 @@ class Dialoge {
                         padding: const EdgeInsets.symmetric(vertical: 18.0),
                         child: Text(
                           utils.getTranslated(context, "gameOver"),
-                          style: TextStyle(color: white),
+                          style: const TextStyle(color: white),
                         ),
                       ),
                       Padding(
@@ -68,7 +68,7 @@ class Dialoge {
                                     backgroundColor: Colors.transparent,
                                     radius: 50,
                                     backgroundImage: (pic == ""
-                                            ? AssetImage(
+                                            ? const AssetImage(
                                                 "assets/images/dora_win.png")
                                             : NetworkImage(pic!))
                                         as ImageProvider<Object>?))),
@@ -76,9 +76,7 @@ class Dialoge {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "$playerName" +
-                              " " +
-                              utils.getTranslated(context, "win"),
+                          "$playerName ${utils.getTranslated(context, "win")}",
                           style: Theme.of(context)
                               .textTheme
                               .headline6!
@@ -127,7 +125,7 @@ class Dialoge {
                                 context, ModalRoute.withName("/home"));
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: white,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20.0)),
@@ -137,7 +135,7 @@ class Dialoge {
                                   horizontal: 18.0, vertical: 5),
                               child: Text(
                                 utils.getTranslated(context, "ok"),
-                                style: TextStyle(color: primaryColor),
+                                style: const TextStyle(color: primaryColor),
                               ),
                             ),
                           ),
@@ -159,48 +157,44 @@ class Dialoge {
         context: context,
         title: Text(
           utils.getTranslated(context, "gameOver"),
-          style: TextStyle(color: white),
+          style: const TextStyle(color: white),
         ),
         onTapActionButton: () {},
-        content: Text(
+        content: const Text(
           "Game tie",
           style: TextStyle(color: white, fontSize: 25),
         ),
         multipleAction: <Widget>[
-          Container(
-            child: TextButton(
-              onPressed: () async {
-                music.play(click);
-                Navigator.of(context).pushReplacementNamed("/home");
-              },
-              child: Text(
-                utils.getTranslated(context, "ok"),
-                style: TextStyle(color: white),
-              ),
+          TextButton(
+            onPressed: () async {
+              music.play(click);
+              Navigator.of(context).pushReplacementNamed("/home");
+            },
+            child: Text(
+              utils.getTranslated(context, "ok"),
+              style: const TextStyle(color: white),
             ),
           ),
-          Container(
-            child: TextButton(
-              onPressed: () {
-                fromScreen == "Singleplayer"
-                    ? Navigator.pushReplacement(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (BuildContext context) =>
-                                SinglePlayerScreenActivity(
-                                    player1skin, player2skin, levelType)))
-                    : Navigator.pushReplacement(
-                        context,
-                        CupertinoPageRoute(
-                            builder: (BuildContext context) => PassNPLay(
-                                player1name,
-                                player2name,
-                                player1skin,
-                                player2skin)));
-              },
-              child: Text(utils.getTranslated(context, "restart"),
-                  style: TextStyle(color: white)),
-            ),
+          TextButton(
+            onPressed: () {
+              fromScreen == "Singleplayer"
+                  ? Navigator.pushReplacement(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (BuildContext context) =>
+                              SinglePlayerScreenActivity(
+                                  player1skin, player2skin, levelType)))
+                  : Navigator.pushReplacement(
+                      context,
+                      CupertinoPageRoute(
+                          builder: (BuildContext context) => PassNPLay(
+                              player1name,
+                              player2name,
+                              player1skin,
+                              player2skin)));
+            },
+            child: Text(utils.getTranslated(context, "restart"),
+                style: const TextStyle(color: white)),
           )
         ]);
   }
@@ -212,7 +206,7 @@ class Dialoge {
           return Alert(
             title: Text(
               utils.getTranslated(context, "aleart"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
             isMultipleAction: true,
             defaultActionButtonName: utils.getTranslated(context, "ok"),
@@ -222,7 +216,7 @@ class Dialoge {
             },
             content: Text(
               utils.getTranslated(context, "youDontHaveMoney"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
           );
         });
@@ -237,7 +231,7 @@ class Dialoge {
               backgroundColor: Colors.transparent,
               content: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
                   ),
@@ -254,7 +248,7 @@ class Dialoge {
         context: context,
         title: Text(
           utils.getTranslated(context, "gameOver"),
-          style: TextStyle(color: white),
+          style: const TextStyle(color: white),
         ),
         onTapActionButton: () async {
           music.play(click);
@@ -262,27 +256,24 @@ class Dialoge {
         },
         content: Text(
           utils.getTranslated(context, "tie"),
-          style: TextStyle(color: white),
+          style: const TextStyle(color: white),
         ),
         multipleAction: <Widget>[
-          Container(
-            // width: MediaQuery.of(context).size.width / 3,
-            child: TextButton(
-              onPressed: () async {
-                music.play(click);
+          TextButton(
+            onPressed: () async {
+              music.play(click);
 
-                if (gamekey != null) {
-                  removeChild("Game", gamekey);
-                }
+              if (gamekey != null) {
+                removeChild("Game", gamekey);
+              }
 
-                //Navigator.pushReplacementNamed(context, "/home");
-                Navigator.pop(context);
-                Navigator.pop(context);
-              },
-              child: Text(
-                utils.getTranslated(context, "ok"),
-                style: TextStyle(color: white),
-              ),
+              //Navigator.pushReplacementNamed(context, "/home");
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: Text(
+              utils.getTranslated(context, "ok"),
+              style: const TextStyle(color: white),
             ),
           ),
         ]);
@@ -296,7 +287,7 @@ class Dialoge {
         context: context,
         title: Text(
           utils.getTranslated(context, "nextRound"),
-          style: TextStyle(color: white),
+          style: const TextStyle(color: white),
           textAlign: TextAlign.center,
         ),
         onTapActionButton: () async {
@@ -304,22 +295,19 @@ class Dialoge {
         },
         content: Text(
           subtitle,
-          style: TextStyle(color: white),
+          style: const TextStyle(color: white),
           textAlign: TextAlign.center,
         ),
         multipleAction: <Widget>[
-          Container(
-            // width: MediaQuery.of(context).size.width / 3,
-            child: TextButton(
-              onPressed: () async {
-                music.play(click);
-                //Navigator.pushReplacementNamed(context, "/home");
-                Navigator.pop(context);
-              },
-              child: Text(
-                utils.getTranslated(context, "ok"),
-                style: TextStyle(color: white),
-              ),
+          TextButton(
+            onPressed: () async {
+              music.play(click);
+              //Navigator.pushReplacementNamed(context, "/home");
+              Navigator.pop(context);
+            },
+            child: Text(
+              utils.getTranslated(context, "ok"),
+              style: const TextStyle(color: white),
             ),
           ),
         ]);
@@ -336,7 +324,7 @@ class Dialoge {
               defaultActionButtonName: utils.getTranslated(context, "ok"),
               title: Text(
                 utils.getTranslated(context, "opponentDisconnected"),
-                style: TextStyle(color: white),
+                style: const TextStyle(color: white),
               ),
               isMultipleAction: true,
               multipleAction: [
@@ -348,13 +336,13 @@ class Dialoge {
                     },
                     child: Text(
                       utils.getTranslated(context, "ok"),
-                      style: TextStyle(color: white),
+                      style: const TextStyle(color: white),
                     ))
               ],
               onTapActionButton: () async {},
               content: Text(
                 "You got  ${entryfee * 2} coins.",
-                style: TextStyle(color: white),
+                style: const TextStyle(color: white),
               ),
             ),
           );
@@ -370,7 +358,7 @@ class Dialoge {
             defaultActionButtonName: utils.getTranslated(context, "ok"),
             title: Text(
               utils.getTranslated(context, "error"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
               textAlign: TextAlign.center,
             ),
             isMultipleAction: true,
@@ -382,13 +370,13 @@ class Dialoge {
                   },
                   child: Text(
                     utils.getTranslated(context, "ok"),
-                    style: TextStyle(color: white),
+                    style: const TextStyle(color: white),
                   ))
             ],
             onTapActionButton: () async {},
             content: Text(
               utils.getTranslated(context, "checkYourInternet"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
               textAlign: TextAlign.center,
             ),
           );
@@ -396,7 +384,7 @@ class Dialoge {
   }
 
   static removeChild(String parentNode, String? childNode) {
-    Future.delayed(Duration(minutes: 2)).then((value) {
+    Future.delayed(const Duration(minutes: 2)).then((value) {
       FirebaseDatabase.instance
           .ref()
           .child(parentNode)

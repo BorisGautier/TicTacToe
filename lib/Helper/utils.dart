@@ -72,23 +72,23 @@ class Utils {
   Locale _locale(String languageCode) {
     switch (languageCode) {
       case "en":
-        return Locale("en", 'US');
+        return const Locale("en", 'US');
       case "fr":
-        return Locale("fr", 'FR');
+        return const Locale("fr", 'FR');
       case "es":
-        return Locale("es", "ES");
+        return const Locale("es", "ES");
       case "hi":
-        return Locale("hi", "IN");
+        return const Locale("hi", "IN");
       case "ar":
-        return Locale("ar", "DZ");
+        return const Locale("ar", "DZ");
       case "ru":
-        return Locale("ru", "RU");
+        return const Locale("ru", "RU");
       case "ja":
-        return Locale("ja", "JP");
+        return const Locale("ja", "JP");
       case "de":
-        return Locale("de", "DE");
+        return const Locale("de", "DE");
       default:
-        return Locale("en", 'US');
+        return const Locale("en", 'US');
     }
   }
 
@@ -97,65 +97,65 @@ class Utils {
   }
 
   Future<Locale> setLocale(String languageCode) async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    await _prefs.setString(LAGUAGE_CODE, languageCode);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(LAGUAGE_CODE, languageCode);
     return _locale(languageCode);
   }
 
   Future<Locale> getLocale() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    String languageCode = _prefs.getString(LAGUAGE_CODE) ?? "fr";
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String languageCode = prefs.getString(LAGUAGE_CODE) ?? "fr";
     return _locale(languageCode);
   }
 
   Future getSfxValue() async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
-    return _sp.getBool(appName + "SFX-ENABLED") ?? false;
+    return sp.getBool("${appName}SFX-ENABLED") ?? false;
   }
 
   Future setSfxValue() async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
-    _sp.setBool(appName + "SFX-ENABLED", true);
+    sp.setBool("${appName}SFX-ENABLED", true);
   }
 
   Future setSkinValue(String key, String value) async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
-    _sp.setString(key, value);
+    sp.setString(key, value);
   }
 
   Future getSkinValue(String key) async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
-    return _sp.getString(key) ?? "";
+    return sp.getString(key) ?? "";
   }
 
   Future setUserLoggedIn(String key, bool value) async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
-    _sp.setBool(key, value);
+    sp.setBool(key, value);
   }
 
   Future getUserLoggedIn(String key) async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
 
-    return _sp.getBool(key) ?? false;
+    return sp.getBool(key) ?? false;
   }
 
   replaceScreenAfter(BuildContext context, String route) {
     Navigator.of(context).pushReplacementNamed(route);
   }
 
-  Widget showCircularProgress(bool _isProgress, Color color) {
-    if (_isProgress) {
+  Widget showCircularProgress(bool isProgress, Color color) {
+    if (isProgress) {
       return Center(
           child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(color),
       ));
     }
-    return Container(
+    return const SizedBox(
       height: 0.0,
       width: 0.0,
     );
@@ -177,7 +177,7 @@ class Utils {
               onWillPop: () async => false,
               child: AlertDialog(
                 backgroundColor: primaryColor,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 title: title,
                 content: content,
@@ -187,7 +187,7 @@ class Utils {
   }
 
   getCoins() async {
-    int? _coin = 0;
+    int? coin = 0;
 
     FirebaseDatabase db = FirebaseDatabase.instance;
     var once = await db
@@ -195,7 +195,7 @@ class Utils {
         .child("users")
         .child(FirebaseAuth.instance.currentUser!.uid)
         .once();
-    _coin = await (once.snapshot.value as Map)["coin"];
+    coin = await (once.snapshot.value as Map)["coin"];
 
     db
         .ref()
@@ -204,10 +204,10 @@ class Utils {
         .onChildChanged
         .listen((DatabaseEvent ev) {
       if (ev.snapshot.key == "coin") {
-        _coin = int.parse(ev.snapshot.value.toString());
+        coin = int.parse(ev.snapshot.value.toString());
       }
     });
-    return _coin;
+    return coin;
   }
 
   Future<bool> checkConnection(context) async {
@@ -222,7 +222,7 @@ class Utils {
   }
 
   limitChar(String value, [int? q]) {
-    var useQ = q != null ? q : 20;
+    var useQ = q ?? 20;
     var st = value.length > useQ ? "..." : "";
 
     var r = value.substring(0, value.length > useQ ? useQ : value.length);
@@ -230,7 +230,7 @@ class Utils {
   }
 
   BoxDecoration gradBack() {
-    return BoxDecoration(
+    return const BoxDecoration(
         gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -277,7 +277,7 @@ class Utils {
       content: Text(
         message,
         textAlign: TextAlign.center,
-        style: TextStyle(color: primaryColor),
+        style: const TextStyle(color: primaryColor),
       ),
       backgroundColor: white,
       elevation: 1.0,

@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, prefer_typing_uninitialized_variables, use_build_context_synchronously, empty_catches, library_private_types_in_public_api
 
 import 'dart:io';
 import 'dart:math' as math;
@@ -91,24 +91,24 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
     super.initState();
     initAnimation();
     _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
 
     centerAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         milliseconds: 200,
       ),
     );
 
     doraAnimation = Tween<Offset>(
-      begin: Offset(0.0, 1.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(0.0, 1.0),
+      end: const Offset(0.0, 0.0),
     ).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
 
     leftAnimation = Tween<Offset>(
-      begin: Offset(1.0, 0.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(1.0, 0.0),
+      end: const Offset(0.0, 0.0),
     ).animate(
         CurvedAnimation(parent: _animationController, curve: Curves.easeIn));
     centerAnimationController.forward();
@@ -118,7 +118,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
     coins();
     canP();
     deleteOldGames();
-    Future.delayed(Duration(seconds: 0)).then((value) {
+    Future.delayed(const Duration(seconds: 0)).then((value) {
       itemList = [
         Item(
           icon: "assets/images/offline_white.png",
@@ -167,7 +167,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
   void initAnimation() {
     firstAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(
+      duration: const Duration(
         milliseconds: 500,
       ),
     );
@@ -231,10 +231,11 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
         coin = init;
       });
       await ins.detectChange("coin", (val) {
-        if (mounted)
+        if (mounted) {
           setState(() {
             coin = val;
           });
+        }
       });
     } catch (err) {}
   }
@@ -256,7 +257,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         elevation: 0,
-        title: Coin(),
+        title: const Coin(),
         actions: [
           InkWell(
               onTap: () async {
@@ -279,7 +280,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
         ],
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage(
                   "assets/images/bg.png",
@@ -303,7 +304,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                   int sensitivity = 8;
                   if (details.delta.dy > sensitivity) {
                     //down swipe
-                    Future.delayed(Duration(seconds: 0), () {
+                    Future.delayed(const Duration(seconds: 0), () {
                       if (!firstAnimationController.isAnimating) {
                         setState(() {
                           swipeUP = false;
@@ -350,7 +351,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                     ? Transform(
                         alignment: AlignmentDirectional.topCenter,
                         transform: Matrix4.rotationY(math.pi),
-                        child: Container(
+                        child: SizedBox(
                           width: MediaQuery.of(context).size.width / 2,
                           child: SlideTransition(
                               position: leftAnimation,
@@ -364,7 +365,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                               )),
                         ),
                       )
-                    : Container(
+                    : SizedBox(
                         width: MediaQuery.of(context).size.width / 2,
                         child: SlideTransition(
                             position: leftAnimation,
@@ -520,14 +521,14 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                         dialoge.error(context);
                       }
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.skip_next,
                       color: primaryColor,
                       size: 20,
                     ),
                     label: Text(
                       utils.getTranslated(context, "next"),
-                      style: TextStyle(color: primaryColor, fontSize: 12),
+                      style: const TextStyle(color: primaryColor, fontSize: 12),
                     ))
               ],
             ));
@@ -581,7 +582,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                           border: InputBorder.none,
                           focusColor: white,
                           hintText: utils.getTranslated(context, "playerName"),
-                          hintStyle: TextStyle(color: grey),
+                          hintStyle: const TextStyle(color: grey),
                           fillColor: white,
                         ),
                       ),
@@ -612,7 +613,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                           ),
                         ),
                         hintText: utils.getTranslated(context, "playerName"),
-                        hintStyle: TextStyle(color: grey),
+                        hintStyle: const TextStyle(color: grey),
                         fillColor: white,
                       ),
                     ),
@@ -642,14 +643,14 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                                     opponentSkin)));
                       }
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.skip_next,
                       color: primaryColor,
                       size: 20,
                     ),
                     label: Text(
                       utils.getTranslated(context, "start"),
-                      style: TextStyle(color: primaryColor, fontSize: 12),
+                      style: const TextStyle(color: primaryColor, fontSize: 12),
                     ))
               ],
             ));
@@ -677,7 +678,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width * .7,
                     child: ChipGrid(
                       list: noOfRound,
@@ -727,7 +728,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
                     },
                     child: Text(
                       utils.getTranslated(context, "start"),
-                      style: TextStyle(color: primaryColor, fontSize: 12),
+                      style: const TextStyle(color: primaryColor, fontSize: 12),
                     ))
               ],
             ));
@@ -782,7 +783,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.4,
             child: Text(
               itemList[pos].name,
@@ -795,7 +796,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.3,
           child: Text(
             itemList[pos].desc,
@@ -812,20 +813,21 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
           onPressed: () {
             playButtonPressed(pos);
           },
-          child: Text(utils.getTranslated(context, "playNow"),
-              style:
-                  Theme.of(context).textTheme.caption!.copyWith(color: white)),
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(
                 const EdgeInsets.symmetric(vertical: 0, horizontal: 10)),
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed))
+                if (states.contains(MaterialState.pressed)) {
                   return secondaryColor;
+                }
                 return secondarySelectedColor;
               },
             ),
           ),
+          child: Text(utils.getTranslated(context, "playNow"),
+              style:
+                  Theme.of(context).textTheme.caption!.copyWith(color: white)),
         )
       ],
     );
@@ -845,7 +847,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
   Widget getCenterItem() {
     return SlideTransition(
         position: centerAnimationController.drive(
-            Tween(begin: Offset(0.0, 0.1), end: Offset(0.0, 0.0))
+            Tween(begin: const Offset(0.0, 0.1), end: const Offset(0.0, 0.0))
                 .chain(CurveTween(curve: Curves.easeInOut))),
         child: Container(
             transformAlignment:
@@ -859,12 +861,12 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
             height: MediaQuery.of(context).size.height / 3.3,
             decoration: BoxDecoration(
                 color: bottomSwipeColor.value,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(30),
                     topLeft: Radius.circular(30))),
             child: Center(
               child: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(
                       start: 20.0, top: 10.0, bottom: 10.0, end: 10.0),
@@ -891,7 +893,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.4,
             child: Text(
               itemList[_swiperIndex].name,
@@ -904,7 +906,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.3,
           child: Text(
             itemList[_swiperIndex].desc,
@@ -921,20 +923,21 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
           onPressed: () {
             playButtonPressed(_swiperIndex);
           },
-          child: Text(utils.getTranslated(context, "playNow"),
-              style:
-                  Theme.of(context).textTheme.caption!.copyWith(color: white)),
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(
-                EdgeInsets.symmetric(vertical: 0, horizontal: 10)),
+                const EdgeInsets.symmetric(vertical: 0, horizontal: 10)),
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed))
+                if (states.contains(MaterialState.pressed)) {
                   return secondaryColor;
+                }
                 return secondarySelectedColor;
               },
             ),
           ),
+          child: Text(utils.getTranslated(context, "playNow"),
+              style:
+                  Theme.of(context).textTheme.caption!.copyWith(color: white)),
         )
       ],
     );
@@ -955,11 +958,11 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
         height: MediaQuery.of(context).size.height / 3.6,
         decoration: BoxDecoration(
             color: topSwipeColor.value,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(30), topLeft: Radius.circular(30))),
         child: Center(
           child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             child: Padding(
               padding: const EdgeInsetsDirectional.only(
                   start: 20.0, bottom: 10.0, top: 10.0, end: 10.0),
@@ -986,7 +989,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.4,
             child: Text(
               itemList[pos].name,
@@ -999,7 +1002,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
             ),
           ),
         ),
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.3,
           child: Text(
             itemList[pos].desc,
@@ -1016,33 +1019,34 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
           onPressed: () {
             playButtonPressed(pos);
           },
-          child: Text(utils.getTranslated(context, "playNow"),
-              style:
-                  Theme.of(context).textTheme.caption!.copyWith(color: white)),
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(
-                EdgeInsets.symmetric(vertical: 0, horizontal: 10)),
+                const EdgeInsets.symmetric(vertical: 0, horizontal: 10)),
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
-                if (states.contains(MaterialState.pressed))
+                if (states.contains(MaterialState.pressed)) {
                   return secondaryColor;
+                }
                 return secondarySelectedColor;
               },
             ),
           ),
+          child: Text(utils.getTranslated(context, "playNow"),
+              style:
+                  Theme.of(context).textTheme.caption!.copyWith(color: white)),
         )
       ],
     );
   }
 
   void deleteOldGames() async {
-    Map? gameData = Map();
+    Map? gameData = {};
 
-    FirebaseDatabase _ins = FirebaseDatabase.instance;
-    DatabaseEvent _gameRef = await _ins.ref().child("Game").once();
+    FirebaseDatabase ins = FirebaseDatabase.instance;
+    DatabaseEvent gameRef = await ins.ref().child("Game").once();
 
-    if (_gameRef.snapshot.value != null) {
-      gameData = _gameRef.snapshot.value as Map;
+    if (gameRef.snapshot.value != null) {
+      gameData = gameRef.snapshot.value as Map;
       gameData.forEach((key, value) {
         //delete game if the game status is closed and still in the DB
         if (value["status"] == "closed") {
@@ -1062,7 +1066,7 @@ class HomeScreenActivityState extends State<HomeScreenActivity>
 }
 
 class Coin extends StatefulWidget {
-  Coin({Key? key}) : super(key: key);
+  const Coin({Key? key}) : super(key: key);
 
   @override
   _CoinState createState() => _CoinState();
@@ -1126,7 +1130,7 @@ class _CoinState extends State<Coin> {
           ),
           Text(
             coin != null ? " $coin" : "---",
-            style: TextStyle(color: yellow, fontSize: 10),
+            style: const TextStyle(color: yellow, fontSize: 10),
           ),
         ],
       ),
@@ -1166,7 +1170,7 @@ class _ChipGridState extends State<ChipGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).devicePixelRatio == 2.75 ? 120 : 95,
       child: GridView.builder(

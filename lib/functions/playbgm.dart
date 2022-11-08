@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, unnecessary_getters_setters
+
 import 'dart:async';
 
 import 'package:tictactoe/Helper/constant.dart';
@@ -31,8 +33,9 @@ class Music {
       if (_filename == backMusic) {
         player = await cache.loop(_filename);
         status = "playing";
-      } else
+      } else {
         cache.play(_filename);
+      }
     }
   }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:io';
 
@@ -70,8 +72,9 @@ class _AuthOptionsScreenState extends State<Login> {
                         backgroundColor:
                             MaterialStateProperty.resolveWith<Color>(
                           (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed))
+                            if (states.contains(MaterialState.pressed)) {
                               return secondarySelectedColor;
+                            }
                             return white;
                           },
                         ),
@@ -83,7 +86,7 @@ class _AuthOptionsScreenState extends State<Login> {
                       label: Center(
                         child: Text(
                           utils.getTranslated(context, "signInApple"),
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: primaryColor,
                           ),
                         ),
@@ -91,7 +94,7 @@ class _AuthOptionsScreenState extends State<Login> {
                     ),
                   )
                 : Container(),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             Container(
@@ -104,8 +107,9 @@ class _AuthOptionsScreenState extends State<Login> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
+                      if (states.contains(MaterialState.pressed)) {
                         return secondarySelectedColor;
+                      }
                       return white;
                     },
                   ),
@@ -118,7 +122,7 @@ class _AuthOptionsScreenState extends State<Login> {
                 label: Center(
                   child: Text(
                     utils.getTranslated(context, "signInGoogle"),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: primaryColor,
                     ),
                   ),
@@ -136,8 +140,9 @@ class _AuthOptionsScreenState extends State<Login> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
+                      if (states.contains(MaterialState.pressed)) {
                         return secondarySelectedColor;
+                      }
                       return white;
                     },
                   ),
@@ -153,7 +158,7 @@ class _AuthOptionsScreenState extends State<Login> {
                 label: Center(
                   child: Text(
                     utils.getTranslated(context, "signInGuest"),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: primaryColor,
                     ),
                   ),
@@ -172,24 +177,25 @@ class _AuthOptionsScreenState extends State<Login> {
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(
                     (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed))
+                      if (states.contains(MaterialState.pressed)) {
                         return secondarySelectedColor;
+                      }
                       return white;
                     },
                   ),
                 ),
                 onPressed: () async {
                   await Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (context) => LoginWithEmail()));
+                      builder: (context) => const LoginWithEmail()));
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.email,
                   color: red,
                 ),
                 label: Center(
                   child: Text(
                     utils.getTranslated(context, "signInEmail"),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: primaryColor,
                     ),
                   ),

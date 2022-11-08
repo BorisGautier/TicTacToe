@@ -14,10 +14,10 @@ class HowToPlay extends StatelessWidget {
         backgroundColor: Colors.transparent,
         automaticallyImplyLeading: false,
         elevation: 0,
-        title: Coin(),
+        title: const Coin(),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: white,
             image: DecorationImage(
               image: AssetImage(
@@ -34,7 +34,7 @@ class HowToPlay extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: primaryColor,
                     borderRadius: BorderRadius.all(Radius.circular(20.0))),
                 height: MediaQuery.of(context).size.height / 3,
@@ -44,7 +44,7 @@ class HowToPlay extends StatelessWidget {
                     Text(
                       utils.getTranslated(context, "howToPlayHeading"),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         decoration: TextDecoration.none,
                         color: white,
@@ -55,7 +55,7 @@ class HowToPlay extends StatelessWidget {
                       child: Text(
                         utils.getTranslated(context, "howToPlayContent"),
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           color: white,
                           decoration: TextDecoration.none,
@@ -70,7 +70,7 @@ class HowToPlay extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: white,
                           borderRadius: BorderRadius.all(Radius.circular(20.0)),
                         ),
@@ -79,7 +79,7 @@ class HowToPlay extends StatelessWidget {
                               horizontal: 18.0, vertical: 5),
                           child: Text(
                             utils.getTranslated(context, "ok"),
-                            style: TextStyle(color: primaryColor),
+                            style: const TextStyle(color: primaryColor),
                           ),
                         ),
                       ),

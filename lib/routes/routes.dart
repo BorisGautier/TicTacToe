@@ -9,13 +9,13 @@ import 'package:tictactoe/screens/splash.dart';
 
 class Routes {
   static final data = {
-    "/authscreen": (context) => Login(),
-    "/home": (context) => HomeScreenActivity(),
-    "/splash": (context) => SplashScreen(),
-    "/leaderboard": (context) => LeaderBoardScreen(),
-    "/profile": (context) => Profile(),
-    "/shop": (context) => ShopScreen(),
-    "/skin": (context) => Skins(),
+    "/authscreen": (context) => const Login(),
+    "/home": (context) => const HomeScreenActivity(),
+    "/splash": (context) => const SplashScreen(),
+    "/leaderboard": (context) => const LeaderBoardScreen(),
+    "/profile": (context) => const Profile(),
+    "/shop": (context) => const ShopScreen(),
+    "/skin": (context) => const Skins(),
     "/gamehistory": (context) => GameHistory(),
   };
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
+
 import 'package:tictactoe/Helper/color.dart';
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/Helper/utils.dart';
@@ -6,11 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-Utils utils = new Utils();
+Utils utils = Utils();
 
 class _SplashScreenState extends State<SplashScreen> {
   @override

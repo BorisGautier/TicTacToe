@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+
 import 'package:tictactoe/Helper/color.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +19,12 @@ class Alert extends StatelessWidget {
       required this.defaultActionButtonName,
       required this.onTapActionButton,
       this.content})
-      : assert(onTapActionButton != null);
+      : assert(onTapActionButton != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 100,
       height: 100,
       child: AlertDialog(
@@ -36,9 +39,9 @@ class Alert extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
-                      child: Text(defaultActionButtonName,
-                          style: TextStyle(color: primaryColor)),
                       onPressed: onTapActionButton,
+                      child: Text(defaultActionButtonName,
+                          style: const TextStyle(color: primaryColor)),
                     ),
                   ),
                 )

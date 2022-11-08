@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api, prefer_typing_uninitialized_variables, empty_catches, use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:io';
 
@@ -29,6 +31,8 @@ import 'gamehistory.dart';
 import 'splash.dart';
 
 class Profile extends StatefulWidget {
+  const Profile({Key? key}) : super(key: key);
+
   @override
   _ProfileBodyState createState() => _ProfileBodyState();
 }
@@ -134,7 +138,7 @@ class _ProfileBodyState extends State<Profile> {
                     children: [
                       Container(
                           height: MediaQuery.of(context).size.height / 4.5,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
@@ -142,7 +146,7 @@ class _ProfileBodyState extends State<Profile> {
                                     secondaryColor,
                                     primaryColor,
                                   ]),
-                              borderRadius: const BorderRadius.only(
+                              borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(40),
                                   bottomRight: Radius.circular(40)))),
                       Center(
@@ -175,7 +179,7 @@ class _ProfileBodyState extends State<Profile> {
                                 ),
                                 Text(
                                   "  $coin",
-                                  style: TextStyle(color: white),
+                                  style: const TextStyle(color: white),
                                 )
                               ],
                             ),
@@ -191,7 +195,7 @@ class _ProfileBodyState extends State<Profile> {
                               music.play(click);
                               Navigator.pop(context);
                             },
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_back,
                               color: white,
                               size: 25,
@@ -203,34 +207,34 @@ class _ProfileBodyState extends State<Profile> {
                         child: Row(
                           children: [
                             Expanded(
+                              flex: 1,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "$matchPlayedCount",
-                                    style: TextStyle(color: white),
+                                    style: const TextStyle(color: white),
                                   ),
                                   Text(
                                     utils.getTranslated(context, "matchPlayed"),
                                   ),
                                 ],
                               ),
-                              flex: 1,
                             ),
                             Expanded(
+                              flex: 1,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "$matchWon",
-                                    style: TextStyle(color: white),
+                                    style: const TextStyle(color: white),
                                   ),
                                   Text(
                                     utils.getTranslated(context, "matchWonLbl"),
                                   ),
                                 ],
                               ),
-                              flex: 1,
                             )
                           ],
                         ),
@@ -249,14 +253,28 @@ class _ProfileBodyState extends State<Profile> {
                             child: Container(
                                 // margin: EdgeInsets.only(top: 10),
                                 padding: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     color: white,
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20))),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     InkWell(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
+                                      onTap: () async {
+                                        changeValue(true);
+                                        music.play(click);
+                                        setState(() {
+                                          sound = true;
+                                        });
+                                        if (Music.status != null &&
+                                            Music.status == "playing") {
+                                        } else {
+                                          await music.play(backMusic);
+                                        }
+                                      },
                                       child: Container(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 10, vertical: 5),
@@ -293,20 +311,6 @@ class _ProfileBodyState extends State<Profile> {
                                           ],
                                         ),
                                       ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20)),
-                                      onTap: () async {
-                                        changeValue(true);
-                                        music.play(click);
-                                        setState(() {
-                                          sound = true;
-                                        });
-                                        if (Music.status != null &&
-                                            Music.status == "playing") {
-                                        } else {
-                                          await music.play(backMusic);
-                                        }
-                                      },
                                     ),
                                     InkWell(
                                       borderRadius: const BorderRadius.all(
@@ -377,17 +381,17 @@ class _ProfileBodyState extends State<Profile> {
                                     context,
                                     CupertinoPageRoute(
                                         builder: (context) =>
-                                            LoginWithEmail()));
+                                            const LoginWithEmail()));
                               },
                               child: ListTile(
-                                leading: Icon(
+                                leading: const Icon(
                                   Icons.login,
                                   color: primaryColor,
                                   size: 22,
                                 ),
                                 title: Text(
                                   utils.getTranslated(context, "signInNow"),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: primaryColor,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -435,38 +439,36 @@ class _ProfileBodyState extends State<Profile> {
                       openEditProfileBottomSheet();
                     }
                   },
-                  child: Container(
-                    child: Center(
-                      child: Stack(
-                        children: [
-                          CircleAvatar(
-                            child: CircleAvatar(
-                              backgroundImage: NetworkImage(profilePic),
-                              radius: 35,
-                            ),
-                            backgroundColor: primaryColor,
-                            radius: 40,
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: primaryColor,
+                          radius: 40,
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(profilePic),
+                            radius: 35,
                           ),
-                          _auth.currentUser!.isAnonymous
-                              ? Container()
-                              : Positioned.directional(
-                                  textDirection: Directionality.of(context),
-                                  bottom: 8,
-                                  end: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.all(2.0),
-                                    decoration: BoxDecoration(
-                                        color: grey,
-                                        borderRadius:
-                                            BorderRadius.circular(50.0)),
-                                    child: Icon(
-                                      Icons.edit,
-                                      size: 20,
-                                      color: primaryColor,
-                                    ),
-                                  ))
-                        ],
-                      ),
+                        ),
+                        _auth.currentUser!.isAnonymous
+                            ? Container()
+                            : Positioned.directional(
+                                textDirection: Directionality.of(context),
+                                bottom: 8,
+                                end: 0,
+                                child: Container(
+                                  padding: const EdgeInsets.all(2.0),
+                                  decoration: BoxDecoration(
+                                      color: grey,
+                                      borderRadius:
+                                          BorderRadius.circular(50.0)),
+                                  child: const Icon(
+                                    Icons.edit,
+                                    size: 20,
+                                    color: primaryColor,
+                                  ),
+                                ))
+                      ],
                     ),
                   ),
                 ),
@@ -538,8 +540,8 @@ class _ProfileBodyState extends State<Profile> {
   }
 
   changeValue(bool val) async {
-    SharedPreferences _sp = await SharedPreferences.getInstance();
-    await _sp.setBool(appName + "SFX-ENABLED", val);
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setBool("${appName}SFX-ENABLED", val);
   }
 
   getTile(String title, String img, bool isSVGImage) {
@@ -555,14 +557,15 @@ class _ProfileBodyState extends State<Profile> {
                     : Image.asset('assets/images/$img.png')
               ],
             )
-          : Icon(
+          : const Icon(
               Icons.games,
               color: primaryColor,
               size: 20,
             ),
       title: Text(
         title,
-        style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
+        style:
+            const TextStyle(color: primaryColor, fontWeight: FontWeight.bold),
       ),
       onTap: () async {
         try {
@@ -598,8 +601,10 @@ class _ProfileBodyState extends State<Profile> {
                       )));
         } else if (title == utils.getTranslated(context, "playMoreGames")) {
           music.play(click);
-          Navigator.push(context,
-              CupertinoPageRoute(builder: (context) => MoreGamesListing()));
+          Navigator.push(
+              context,
+              CupertinoPageRoute(
+                  builder: (context) => const MoreGamesListing()));
         } else if (title == utils.getTranslated(context, "contactUs")) {
           Navigator.push(
               context,
@@ -625,8 +630,8 @@ class _ProfileBodyState extends State<Profile> {
                       )));
         } else if (title == utils.getTranslated(context, "howToPlayHeading")) {
           music.play(click);
-          Navigator.push(
-              context, CupertinoPageRoute(builder: (context) => HowToPlay()));
+          Navigator.push(context,
+              CupertinoPageRoute(builder: (context) => const HowToPlay()));
         } else if (title == utils.getTranslated(context, "rate")) {
           _openStoreListing();
         } else if (title == utils.getTranslated(context, "share")) {
@@ -643,14 +648,14 @@ class _ProfileBodyState extends State<Profile> {
                 return Alert(
                   title: Text(
                     utils.getTranslated(context, "logout"),
-                    style: TextStyle(color: white),
+                    style: const TextStyle(color: white),
                   ),
                   isMultipleAction: true,
                   defaultActionButtonName: utils.getTranslated(context, "ok"),
                   onTapActionButton: () {},
                   content: Text(
                     utils.getTranslated(context, "areYouSure"),
-                    style: TextStyle(color: white),
+                    style: const TextStyle(color: white),
                   ),
                   multipleAction: [
                     TextButton(
@@ -678,7 +683,7 @@ class _ProfileBodyState extends State<Profile> {
                               '/authscreen', (Route<dynamic> route) => false);
                         },
                         child: Text(utils.getTranslated(context, "yes"),
-                            style: TextStyle(color: white))),
+                            style: const TextStyle(color: white))),
                     TextButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(color)),
@@ -688,7 +693,7 @@ class _ProfileBodyState extends State<Profile> {
                           Navigator.pop(context);
                         },
                         child: Text(utils.getTranslated(context, "no"),
-                            style: TextStyle(color: white)))
+                            style: const TextStyle(color: white)))
                   ],
                 );
               });
@@ -717,8 +722,8 @@ class _ProfileBodyState extends State<Profile> {
   }
 
   void _changeLan(String language, BuildContext ctx) async {
-    Locale _locale = await utils.setLocale(language);
-    MyApp.setLocale(ctx, _locale);
+    Locale locale = await utils.setLocale(language);
+    MyApp.setLocale(ctx, locale);
   }
 
   void openChangeLanguageBottomSheet() {
@@ -789,40 +794,38 @@ class _ProfileBodyState extends State<Profile> {
                                 children: [
                                   GestureDetector(
                                     onTap: _imgFromGallery,
-                                    child: Container(
-                                      child: Center(
-                                        child: Stack(
-                                          children: [
-                                            CircleAvatar(
-                                              child: CircleAvatar(
-                                                backgroundImage:
-                                                    NetworkImage(profilePic),
-                                                radius: 39,
-                                              ),
-                                              backgroundColor: primaryColor,
-                                              radius: 40,
+                                    child: Center(
+                                      child: Stack(
+                                        children: [
+                                          CircleAvatar(
+                                            backgroundColor: primaryColor,
+                                            radius: 40,
+                                            child: CircleAvatar(
+                                              backgroundImage:
+                                                  NetworkImage(profilePic),
+                                              radius: 39,
                                             ),
-                                            Positioned.directional(
-                                                textDirection:
-                                                    Directionality.of(context),
-                                                bottom: 0,
-                                                end: 0,
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(2.0),
-                                                  decoration: BoxDecoration(
-                                                      color: grey,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50.0)),
-                                                  child: Icon(
-                                                    Icons.edit,
-                                                    size: 20,
-                                                    color: primaryColor,
-                                                  ),
-                                                ))
-                                          ],
-                                        ),
+                                          ),
+                                          Positioned.directional(
+                                              textDirection:
+                                                  Directionality.of(context),
+                                              bottom: 0,
+                                              end: 0,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.all(2.0),
+                                                decoration: BoxDecoration(
+                                                    color: grey,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50.0)),
+                                                child: const Icon(
+                                                  Icons.edit,
+                                                  size: 20,
+                                                  color: primaryColor,
+                                                ),
+                                              ))
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -831,7 +834,7 @@ class _ProfileBodyState extends State<Profile> {
                                     child: TextFormField(
                                       key: _nameFieldKey,
                                       keyboardType: TextInputType.text,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: primaryColor,
                                         fontWeight: FontWeight.normal,
                                       ),
@@ -848,7 +851,7 @@ class _ProfileBodyState extends State<Profile> {
                                         name = value ?? username;
                                       },
                                       decoration: InputDecoration(
-                                        prefixIcon: Icon(
+                                        prefixIcon: const Icon(
                                           Icons.account_circle_outlined,
                                           color: primaryColor,
                                           size: 20,
@@ -891,7 +894,7 @@ class _ProfileBodyState extends State<Profile> {
                                         onPressed: changeUserNameInFirebase,
                                         child: Text(
                                           utils.getTranslated(context, "save"),
-                                          style: TextStyle(color: white),
+                                          style: const TextStyle(color: white),
                                         )),
                                   )
                                 ]),
@@ -941,12 +944,12 @@ class _ProfileBodyState extends State<Profile> {
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),
                               child: selectedLanguage == index
-                                  ? Icon(
+                                  ? const Icon(
                                       Icons.check,
                                       size: 17.0,
                                       color: white,
                                     )
-                                  : Icon(
+                                  : const Icon(
                                       Icons.check_box_outline_blank,
                                       size: 15.0,
                                       color: white,
@@ -1019,14 +1022,14 @@ class _ProfileBodyState extends State<Profile> {
           return Alert(
             title: Text(
               utils.getTranslated(context, "deleteAccount"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
             isMultipleAction: true,
             defaultActionButtonName: utils.getTranslated(context, "ok"),
             onTapActionButton: () {},
             content: Text(
               utils.getTranslated(context, "areYouSure"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
             multipleAction: [
               TextButton(
@@ -1062,7 +1065,7 @@ class _ProfileBodyState extends State<Profile> {
                     }
                   },
                   child: Text(utils.getTranslated(context, "yes"),
-                      style: TextStyle(color: white))),
+                      style: const TextStyle(color: white))),
               TextButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(color)),
@@ -1072,7 +1075,7 @@ class _ProfileBodyState extends State<Profile> {
                     Navigator.pop(context);
                   },
                   child: Text(utils.getTranslated(context, "no"),
-                      style: TextStyle(color: white)))
+                      style: const TextStyle(color: white)))
             ],
           );
         });

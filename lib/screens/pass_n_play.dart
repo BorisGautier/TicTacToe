@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:math';
 
 import 'package:tictactoe/Helper/color.dart';
@@ -16,18 +18,21 @@ import 'splash.dart';
 class PassNPLay extends StatefulWidget {
   final String? player1, player2, player1Skin, player2Skin;
 
-  PassNPLay(this.player1, this.player2, this.player1Skin, this.player2Skin);
+  const PassNPLay(
+      this.player1, this.player2, this.player1Skin, this.player2Skin,
+      {Key? key})
+      : super(key: key);
 
   @override
   _PassNPLayState createState() => _PassNPLayState();
 }
 
 class _PassNPLayState extends State<PassNPLay> {
-  CountDownController _countDownPlayer = CountDownController();
+  final CountDownController _countDownPlayer = CountDownController();
   String gameStatus = "";
 
   Utils u = Utils();
-  Map buttons = Map();
+  Map buttons = {};
   String? currentMove;
   late Random randomValue;
   String? player;
@@ -63,35 +68,34 @@ class _PassNPLayState extends State<PassNPLay> {
           calledCount += 1;
           setState(() {});
         } else {
-          int _count = 0;
+          int count = 0;
           for (var k = 0; k < buttons.length; k++) {
             if (buttons[k]["state"] != "" && winner == "0") {
-              _count++;
+              count++;
             }
-            if (_count == 9) {
+            if (count == 9) {
               gameStatus = "tie";
 
               tieCalled += 1;
             }
           }
 
-          if (_count == 9 && tieCalled == 1 && winner == "0") {
+          if (count == 9 && tieCalled == 1 && winner == "0") {
             if (mounted) {
               setState(() {});
             }
 
             music.play(tiegame);
 
-            Future.delayed(Duration(seconds: 1)).then((value) {
+            Future.delayed(const Duration(seconds: 1)).then((value) {
               if (winner == "0" && gameStatus == "tie") {
-                Dialoge()
-                  ..tie(
-                      context,
-                      "passnplay",
-                      widget.player1.toString(),
-                      widget.player2.toString(),
-                      widget.player1Skin,
-                      widget.player2Skin);
+                Dialoge().tie(
+                    context,
+                    "passnplay",
+                    widget.player1.toString(),
+                    widget.player2.toString(),
+                    widget.player1Skin,
+                    widget.player2Skin);
               }
               _countDownPlayer.pause();
               setState(() {});
@@ -120,9 +124,8 @@ class _PassNPLayState extends State<PassNPLay> {
 
   playGame([i]) async {
     if (gameStatus == "started") {
-      currentMove = player == "X"
-          ? widget.player1.toString() + " Turn"
-          : widget.player2.toString() + " Turn";
+      currentMove =
+          player == "X" ? "${widget.player1} Turn" : "${widget.player2} Turn";
 
       setState(() {});
 
@@ -136,7 +139,7 @@ class _PassNPLayState extends State<PassNPLay> {
           player = "O";
           _countDownPlayer.restart();
 
-          currentMove = widget.player1.toString() + " Turn";
+          currentMove = "${widget.player1} Turn";
 
           setState(() {});
 
@@ -157,7 +160,7 @@ class _PassNPLayState extends State<PassNPLay> {
           player = "X";
           _countDownPlayer.restart();
 
-          currentMove = widget.player1.toString() + " Turn";
+          currentMove = "${widget.player1} Turn";
 
           setState(() {});
 
@@ -184,14 +187,14 @@ class _PassNPLayState extends State<PassNPLay> {
                 return Alert(
                   title: Text(
                     utils.getTranslated(context, "aleart"),
-                    style: TextStyle(color: white),
+                    style: const TextStyle(color: white),
                   ),
                   isMultipleAction: true,
                   defaultActionButtonName: utils.getTranslated(context, "ok"),
                   onTapActionButton: () {},
                   content: Text(
                     utils.getTranslated(context, "areYouSure"),
-                    style: TextStyle(color: white),
+                    style: const TextStyle(color: white),
                   ),
                   multipleAction: [
                     TextButton(
@@ -204,7 +207,7 @@ class _PassNPLayState extends State<PassNPLay> {
                               context, ModalRoute.withName("/home"));
                         },
                         child: Text(utils.getTranslated(context, "ok"),
-                            style: TextStyle(color: white))),
+                            style: const TextStyle(color: white))),
                     TextButton(
                         style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(color)),
@@ -214,7 +217,7 @@ class _PassNPLayState extends State<PassNPLay> {
                           Navigator.pop(context);
                         },
                         child: Text(utils.getTranslated(context, "cancle"),
-                            style: TextStyle(color: white)))
+                            style: const TextStyle(color: white)))
                   ],
                 );
               });
@@ -242,7 +245,8 @@ class _PassNPLayState extends State<PassNPLay> {
                             strokeWidth: 3,
                             controller: _countDownPlayer,
                             textFormat: CountdownTextFormat.S,
-                            textStyle: TextStyle(color: white, fontSize: 10),
+                            textStyle:
+                                const TextStyle(color: white, fontSize: 10),
                             // autoStart: player == "X" ? true : false,
                             isReverse: true,
                             initialDuration: 0,
@@ -250,10 +254,9 @@ class _PassNPLayState extends State<PassNPLay> {
                               music.play(losegame);
                               Dialoge.winner(
                                   context,
-                                  currentMove ==
-                                          widget.player1.toString() + " Turn"
-                                      ? "${widget.player2.toString()}"
-                                      : "${widget.player1.toString()}",
+                                  currentMove == "${widget.player1} Turn"
+                                      ? widget.player2.toString()
+                                      : widget.player1.toString(),
                                   "",
                                   "",
                                   "",
@@ -267,13 +270,13 @@ class _PassNPLayState extends State<PassNPLay> {
                           )
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       IconButton(
-                          padding: EdgeInsets.only(),
+                          padding: const EdgeInsets.only(),
                           onPressed: () {
                             showQuitGameDialog();
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.logout,
                             color: back,
                           )),
@@ -281,50 +284,48 @@ class _PassNPLayState extends State<PassNPLay> {
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: Center(
-                        child: Stack(
-                          children: [
-                            GridView.builder(
-                              shrinkWrap: true,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3,
-                                      crossAxisSpacing: 0,
-                                      mainAxisSpacing: 0),
-                              itemCount: 9,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () async {
-                                    await Future.delayed(
-                                        Duration(milliseconds: 500));
-                                    if (gameStatus == "started") {
-                                      playGame(index);
-                                    }
-                                  },
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                "assets/images/grid_box.png"),
-                                            fit: BoxFit.fill)),
-                                    child: buttons[index]['state'] == ""
-                                        ? Container()
-                                        : Image.asset(
-                                            u.returnImage(
-                                                index,
-                                                buttons,
-                                                widget.player2Skin,
-                                                widget.player1Skin),
-                                          ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                    child: Center(
+                      child: Stack(
+                        children: [
+                          GridView.builder(
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 3,
+                                    crossAxisSpacing: 0,
+                                    mainAxisSpacing: 0),
+                            itemCount: 9,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () async {
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 500));
+                                  if (gameStatus == "started") {
+                                    playGame(index);
+                                  }
+                                },
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/images/grid_box.png"),
+                                          fit: BoxFit.fill)),
+                                  child: buttons[index]['state'] == ""
+                                      ? Container()
+                                      : Image.asset(
+                                          u.returnImage(
+                                              index,
+                                              buttons,
+                                              widget.player2Skin,
+                                              widget.player1Skin),
+                                        ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -336,7 +337,7 @@ class _PassNPLayState extends State<PassNPLay> {
                     children: [
                       Row(
                         children: [
-                          CircleAvatar(
+                          const CircleAvatar(
                             backgroundImage: AssetImage(
                               "assets/images/signin_Dora.png",
                             ),
@@ -361,8 +362,8 @@ class _PassNPLayState extends State<PassNPLay> {
                                   ],
                                 ),
                                 Text(
-                                  "${widget.player1.toString()}",
-                                  style: TextStyle(color: white),
+                                  widget.player1.toString(),
+                                  style: const TextStyle(color: white),
                                 ),
                               ],
                             ),
@@ -388,13 +389,13 @@ class _PassNPLayState extends State<PassNPLay> {
                                 ],
                               ),
                               Text(
-                                "${widget.player2.toString()}",
-                                style: TextStyle(color: white),
+                                widget.player2.toString(),
+                                style: const TextStyle(color: white),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                          const Padding(
+                            padding: EdgeInsets.only(left: 8.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.transparent,
                               backgroundImage: AssetImage(
@@ -429,14 +430,14 @@ class _PassNPLayState extends State<PassNPLay> {
           return Alert(
             title: Text(
               utils.getTranslated(context, "aleart"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
             isMultipleAction: true,
             defaultActionButtonName: utils.getTranslated(context, "ok"),
             onTapActionButton: () {},
             content: Text(
               utils.getTranslated(context, "areYouSure"),
-              style: TextStyle(color: white),
+              style: const TextStyle(color: white),
             ),
             multipleAction: [
               TextButton(
@@ -448,7 +449,7 @@ class _PassNPLayState extends State<PassNPLay> {
                     Navigator.popUntil(context, ModalRoute.withName("/home"));
                   },
                   child: Text(utils.getTranslated(context, "ok"),
-                      style: TextStyle(color: white))),
+                      style: const TextStyle(color: white))),
               TextButton(
                   style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(color)),
@@ -458,7 +459,7 @@ class _PassNPLayState extends State<PassNPLay> {
                     Navigator.pop(context);
                   },
                   child: Text(utils.getTranslated(context, "cancle"),
-                      style: TextStyle(color: white)))
+                      style: const TextStyle(color: white)))
             ],
           );
         });

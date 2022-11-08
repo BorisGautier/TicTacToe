@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 
 import 'package:tictactoe/Helper/color.dart';
@@ -14,14 +16,14 @@ import 'package:flutter/material.dart';
 import 'splash.dart';
 
 class LeaderBoardScreen extends StatefulWidget {
-  LeaderBoardScreen({Key? key}) : super(key: key);
+  const LeaderBoardScreen({Key? key}) : super(key: key);
 
   @override
   _LeaderBoardScreenState createState() => _LeaderBoardScreenState();
 }
 
 class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   int? yourRank = 0, yourScore = 0;
   String profilePic = guestProfilePic, username = "";
   var ins = GetUserInfo();
@@ -45,7 +47,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     //result = await (leaderBoard() as FutureOr<List<Map<dynamic, dynamic>>>);
     result = await (leaderBoard());
     int count = 1;
-    result.forEach((element) {
+    for (var element in result) {
       if (_auth.currentUser!.uid == element["userid"]) {
         if (mounted) {
           setState(() {
@@ -55,7 +57,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
         }
       }
       count++;
-    });
+    }
   }
 
   Future<List<Map>> leaderBoard() async {
@@ -64,11 +66,11 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
         await db.ref().child("users").orderByChild("score").once();
     Map map = snapshot.snapshot.value as Map;
     List<Map> result = [];
-    map.keys.forEach((e) {
+    for (var e in map.keys) {
       if (map[e]["score"] != 0) {
         result.add(map[e]);
       }
-    });
+    }
     result.sort((a, b) {
       return b['score'].compareTo(a['score']);
     });
@@ -101,7 +103,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                 onPressed: () {
                   showRankDescription(context);
                 },
-                icon: Icon(Icons.help))
+                icon: const Icon(Icons.help))
           ],
         ),
         body: Stack(
@@ -110,9 +112,9 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.13,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: primaryColor,
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(40),
                           bottomRight: Radius.circular(40))),
                   child: Column(
@@ -146,9 +148,9 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                                 yourScore != 0
                                     ? Text(
                                         yourRank.toString(),
-                                        style: TextStyle(color: white),
+                                        style: const TextStyle(color: white),
                                       )
-                                    : Text(
+                                    : const Text(
                                         "--",
                                         style: TextStyle(color: white),
                                       ),
@@ -160,7 +162,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                               children: [
                                 Text(
                                   yourScore.toString(),
-                                  style: TextStyle(color: white),
+                                  style: const TextStyle(color: white),
                                 ),
                                 Text(
                                   utils.getTranslated(context, "yourScore"),
@@ -174,126 +176,115 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                   ),
                 ),
                 Expanded(
-                  child: Container(
-                    //padding: EdgeInsets.only(top: 30.0),
-                    child: FutureBuilder<List<Map>>(
-                        future: leaderBoard(),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            List<Map> data = snapshot.data as List<Map>;
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 15.0),
-                              child: ListView.builder(
-                                physics: const ScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: data.length,
-                                itemBuilder: (BuildContext context, int i) {
-                                  return data[i]["score"] != 0
-                                      ? Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 10.0),
-                                          child: ListTile(
-                                            title: Text(
-                                              data[i]["username"].toString(),
-                                              maxLines: 1,
-                                              softWrap: true,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  color: secondaryColor),
-                                            ),
-                                            leading: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Container(
-                                                  child: Padding(
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 5),
-                                                    child: Center(
-                                                      child: Text(
-                                                        "${i + 1}",
-                                                        style: TextStyle(
-                                                            color:
-                                                                secondaryColor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                  child: FutureBuilder<List<Map>>(
+                      future: leaderBoard(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          List<Map> data = snapshot.data as List<Map>;
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 15.0),
+                            child: ListView.builder(
+                              physics: const ScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: data.length,
+                              itemBuilder: (BuildContext context, int i) {
+                                return data[i]["score"] != 0
+                                    ? Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 10.0),
+                                        child: ListTile(
+                                          title: Text(
+                                            data[i]["username"].toString(),
+                                            maxLines: 1,
+                                            softWrap: true,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                color: secondaryColor),
+                                          ),
+                                          leading: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Container(
+                                                width: 40,
+                                                height: 40,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 5),
+                                                  child: Center(
+                                                    child: Text(
+                                                      "${i + 1}",
+                                                      style: const TextStyle(
+                                                          color: secondaryColor,
+                                                          fontWeight:
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
-                                                  width: 40,
-                                                  height: 40,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
                                                 ),
-                                                const SizedBox(
-                                                  width: 10,
-                                                ),
-                                                CircleAvatar(
-                                                  backgroundColor: primaryColor,
-                                                  backgroundImage: NetworkImage(
-                                                      data[i]["profilePic"] ==
-                                                              null
-                                                          ? guestProfilePic
-                                                          : data[i]
-                                                              ["profilePic"]),
-                                                  radius: 25,
-                                                ),
-                                              ],
-                                            ),
-                                            trailing: Container(
-                                              decoration: BoxDecoration(
-                                                color: primaryColor,
-                                                borderRadius: const BorderRadius
-                                                        .horizontal(
-                                                    left: Radius.circular(50),
-                                                    right: Radius.circular(50)),
                                               ),
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  5,
-                                              height: 40,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 5,
-                                                        horizontal: 10),
-                                                child: Center(
-                                                  child: Text(
-                                                    "${data[i]["score"]}",
-                                                    style:
-                                                        TextStyle(color: white),
-                                                    textDirection:
-                                                        TextDirection.ltr,
-                                                  ),
+                                              const SizedBox(
+                                                width: 10,
+                                              ),
+                                              CircleAvatar(
+                                                backgroundColor: primaryColor,
+                                                backgroundImage: NetworkImage(
+                                                    data[i]["profilePic"] ??
+                                                        guestProfilePic),
+                                                radius: 25,
+                                              ),
+                                            ],
+                                          ),
+                                          trailing: Container(
+                                            decoration: const BoxDecoration(
+                                              color: primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.horizontal(
+                                                      left: Radius.circular(50),
+                                                      right:
+                                                          Radius.circular(50)),
+                                            ),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                5,
+                                            height: 40,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 5,
+                                                      horizontal: 10),
+                                              child: Center(
+                                                child: Text(
+                                                  "${data[i]["score"]}",
+                                                  style: const TextStyle(
+                                                      color: white),
+                                                  textDirection:
+                                                      TextDirection.ltr,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        )
-                                      : Container();
-                                },
-                              ),
-                            );
-                          }
-                          return Container(
-                            child: Text(
-                                utils.getTranslated(context, "noDataFound")),
+                                        ),
+                                      )
+                                    : Container();
+                              },
+                            ),
                           );
-                        }),
-                  ),
+                        }
+                        return Text(
+                            utils.getTranslated(context, "noDataFound"));
+                      }),
                 )
               ],
             ),
@@ -302,12 +293,12 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               left: MediaQuery.of(context).size.width / 2.5,
               child: Center(
                 child: CircleAvatar(
+                  backgroundColor: primaryColor,
+                  radius: 40,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(profilePic),
                     radius: 35,
                   ),
-                  backgroundColor: primaryColor,
-                  radius: 40,
                 ),
               ),
             ),
@@ -330,10 +321,10 @@ showRankDescription(BuildContext context) {
             decoration: BoxDecoration(
                 color: white, borderRadius: BorderRadius.circular(5.0)),
             child: Padding(
-              padding: EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(5.0),
               child: Text(
                 utils.getTranslated(context, "lowScore"),
-                style: TextStyle(
+                style: const TextStyle(
                     color: primaryColor,
                     fontSize: 12,
                     decoration: TextDecoration.none),
@@ -342,5 +333,5 @@ showRankDescription(BuildContext context) {
           )));
 
   Overlay.of(context)!.insert(overlayEntry);
-  Timer(Duration(seconds: 3), () => overlayEntry.remove());
+  Timer(const Duration(seconds: 3), () => overlayEntry.remove());
 }

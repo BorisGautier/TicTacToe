@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
+
 class CreateUser {
   final username;
   final userid;
@@ -25,9 +27,9 @@ class CreateUser {
       "matchplayed": matchplayed,
       "matchwon": matchWon,
       "profilePic": profilePic,
-      "coin": this.coin != null ? this.coin : 500,
-      "score": this.score != null ? this.score : 0,
-      "type": this.type
+      "coin": coin ?? 500,
+      "score": score ?? 0,
+      "type": type
     };
   }
 }

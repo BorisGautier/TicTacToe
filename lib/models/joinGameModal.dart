@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 class JoinModel {
   final String? player1;
   final String? player2;
@@ -14,17 +16,15 @@ class JoinModel {
       this.round});
 
   factory JoinModel.fromJson(json) {
+    String? player2 = "";
 
-    String? player2="";
-
-   if(json.containsKey("player2"))
-     {
-       player2=json["player2"]["id"];
-     }
+    if (json.containsKey("player2")) {
+      player2 = json["player2"]["id"];
+    }
     return JoinModel(
         entryFee: json["entryFee"],
         player1: json["player1"]["id"],
-        player2:player2,
+        player2: player2,
         status: json["status"],
         time: json["time"],
         round: json["round"]);

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, library_private_types_in_public_api, empty_catches, use_build_context_synchronously
+
 import 'dart:async';
 
 import 'package:tictactoe/Helper/color.dart';
@@ -82,10 +84,10 @@ class MultiplayerScreenActivity extends StatefulWidget {
 
 class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
   //-----//
-  FirebaseDatabase _ins = FirebaseDatabase.instance;
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseDatabase _ins = FirebaseDatabase.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  CountDownController _countDownPlayer = CountDownController();
+  final CountDownController _countDownPlayer = CountDownController();
 
   StateSetter? dialogState;
 
@@ -94,13 +96,13 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
   bool? yourTry;
   String? username, profilePic;
   String? uid;
-  Map buttons = Map();
+  Map buttons = {};
   List timerButtons = [];
   String? player1Id, player2Id;
   late DatabaseReference _gameRef;
   late DatabaseReference _userRef;
   int playcountdown = 3;
-  Duration animationDuration = Duration(seconds: 3);
+  Duration animationDuration = const Duration(seconds: 3);
   double itemSize = 0;
   double opacity = 1;
   Timer? playclocktimer;
@@ -135,7 +137,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
 
     _gameSnapshot = _gameRef.child(widget.gameKey).once();
 
-    buttons = new Map<int, dynamic>.from(utils.gameButtons);
+    buttons = Map<int, dynamic>.from(utils.gameButtons);
     buttons = copyDeepMap(utils.gameButtons);
 
     getGamebuttons();
@@ -333,7 +335,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
           _countDownPlayer.pause();
           /** -------- */
 
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(const Duration(seconds: 1));
 
           if (mounted && closedByUs == false) {
             await updateCoin(_auth.currentUser!.uid);
@@ -394,7 +396,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
             ? winGame = true
             : winGame = false;
 
-        Timer(Duration(seconds: 3), () async {
+        Timer(const Duration(seconds: 3), () async {
           winVar1 = null;
           winVar2 = null;
           winVar3 = null;
@@ -463,14 +465,14 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                   point,
                   widget.gameKey);
 
-              var _tempData = (await _gameSnapshot)!.snapshot.value;
+              var tempData = (await _gameSnapshot)!.snapshot.value;
 
               if (winnerId == _auth.currentUser!.uid) {
                 History().update(
                     uid: winnerId,
                     date: DateTime.now().toString(),
                     gameid: widget.gameKey,
-                    gotcoin: (_tempData as Map)["entryFee"] * 2,
+                    gotcoin: (tempData as Map)["entryFee"] * 2,
                     oppornentId: looserId,
                     status: "Won",
                     type: "GAME");
@@ -479,7 +481,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                     uid: looserId,
                     date: DateTime.now().toString(),
                     gameid: widget.gameKey,
-                    gotcoin: -_tempData["entryFee"],
+                    gotcoin: -tempData["entryFee"],
                     oppornentId: winnerId,
                     status: "Lose",
                     type: "GAME");
@@ -546,13 +548,13 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                   point,
                   widget.gameKey);
 
-              var _tempData = (await _gameSnapshot)!.snapshot.value;
+              var tempData = (await _gameSnapshot)!.snapshot.value;
               if (winnerId == _auth.currentUser!.uid) {
                 History().update(
                     uid: winnerId,
                     date: DateTime.now().toString(),
                     gameid: widget.gameKey,
-                    gotcoin: (_tempData as Map)["entryFee"] * 2,
+                    gotcoin: (tempData as Map)["entryFee"] * 2,
                     oppornentId: looserId,
                     status: "Won",
                     type: "GAME");
@@ -561,7 +563,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                     uid: looserId,
                     date: DateTime.now().toString(),
                     gameid: widget.gameKey,
-                    gotcoin: -_tempData["entryFee"],
+                    gotcoin: -tempData["entryFee"],
                     oppornentId: winnerId,
                     status: "Lose",
                     type: "GAME");
@@ -645,13 +647,13 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
             d.tieMultiplayer(context, widget.gameKey);
             updateTieCoin();
 
-            var _tempData = (await _gameSnapshot)!.snapshot.value;
+            var tempData = (await _gameSnapshot)!.snapshot.value;
             if (idOfPlayer1 == _auth.currentUser!.uid) {
               History().update(
                   uid: idOfPlayer2,
                   date: DateTime.now().toString(),
                   gameid: widget.gameKey,
-                  gotcoin: (_tempData as Map)["entryFee"],
+                  gotcoin: (tempData as Map)["entryFee"],
                   oppornentId: idOfPlayer1,
                   status: "Tie",
                   type: "TIE GAME");
@@ -660,7 +662,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                   uid: idOfPlayer1,
                   date: DateTime.now().toString(),
                   gameid: widget.gameKey,
-                  gotcoin: _tempData["entryFee"],
+                  gotcoin: tempData["entryFee"],
                   oppornentId: idOfPlayer2,
                   status: "Tie",
                   type: "TIE GAME");
@@ -692,14 +694,14 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                 earnedCoin,
                 widget.gameKey);
 
-            var _tempData = (await _gameSnapshot)!.snapshot.value;
+            var tempData = (await _gameSnapshot)!.snapshot.value;
 
             if (winnerId == _auth.currentUser!.uid) {
               History().update(
                   uid: winnerId,
                   date: DateTime.now().toString(),
                   gameid: widget.gameKey,
-                  gotcoin: (_tempData as Map)["entryFee"] * 2,
+                  gotcoin: (tempData as Map)["entryFee"] * 2,
                   oppornentId: looserId,
                   status: "Won",
                   type: "GAME");
@@ -708,7 +710,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                   uid: looserId,
                   date: DateTime.now().toString(),
                   gameid: widget.gameKey,
-                  gotcoin: -_tempData["entryFee"],
+                  gotcoin: -tempData["entryFee"],
                   oppornentId: winnerId,
                   status: "Lose",
                   type: "GAME");
@@ -750,7 +752,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
     itemSize = 90;
     // opacity = 0;
 
-    playclocktimer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+    playclocktimer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
       if (mounted && dialogState != null) {
         dialogState!(() {
           playcountdown--;
@@ -784,16 +786,16 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                 onWillPop: () async => false,
                 child: AlertDialog(
                     backgroundColor: primaryColor,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20.0))),
                     title: Text(utils.getTranslated(context, "nextRound"),
-                        style: TextStyle(color: white),
+                        style: const TextStyle(color: white),
                         textAlign: TextAlign.center),
                     content: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(subtitle,
-                            style: TextStyle(color: white),
+                            style: const TextStyle(color: white),
                             textAlign: TextAlign.center),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -804,14 +806,15 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                               duration: animationDuration,
                               width: itemSize,
                               height: itemSize,
-                              decoration: new BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: white,
                                 shape: BoxShape.circle,
                               ),
                               child: Center(
                                   child: Text(
                                 playcountdown.toString(),
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               )),
                             ),
                           ),
@@ -842,16 +845,17 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
         winVar3 != null &&
         winGame != null &&
         winGame! &&
-        (i == winVar1 || i == winVar2 || i == winVar3))
+        (i == winVar1 || i == winVar2 || i == winVar3)) {
       return "assets/images/dora_win.png";
-    else if (winVar1 != null &&
+    } else if (winVar1 != null &&
         winVar2 != null &&
         winVar3 != null &&
         winGame != null &&
         !winGame! &&
-        (i == winVar1 || i == winVar2 || i == winVar3))
+        (i == winVar1 || i == winVar2 || i == winVar3)) {
       return "assets/images/dora_lose.png";
-    else if (buttons[i]["player"] == "player1" && buttons[i]["player"] != "0") {
+    } else if (buttons[i]["player"] == "player1" &&
+        buttons[i]["player"] != "0") {
       if (player1Id == _auth.currentUser!.uid) {
         return widget.imagex;
       }
@@ -907,14 +911,14 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
               return Alert(
                 title: Text(
                   utils.getTranslated(context, "aleart"),
-                  style: TextStyle(color: white),
+                  style: const TextStyle(color: white),
                 ),
                 isMultipleAction: true,
                 defaultActionButtonName: utils.getTranslated(context, "yes"),
                 onTapActionButton: () {},
                 content: Text(
                   utils.getTranslated(context, "areYouSure"),
-                  style: TextStyle(color: white),
+                  style: const TextStyle(color: white),
                 ),
                 multipleAction: [
                   TextButton(
@@ -967,7 +971,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                             context, ModalRoute.withName("/home"));
                       },
                       child: Text(utils.getTranslated(context, "yes"),
-                          style: TextStyle(color: white))),
+                          style: const TextStyle(color: white))),
                   TextButton(
                       style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(color)),
@@ -977,7 +981,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                         Navigator.pop(context);
                       },
                       child: Text(utils.getTranslated(context, "no"),
-                          style: TextStyle(color: white)))
+                          style: const TextStyle(color: white)))
                 ],
               );
             });
@@ -1007,7 +1011,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                         width: 25,
                         controller: _countDownPlayer,
                         textFormat: CountdownTextFormat.S,
-                        textStyle: TextStyle(color: white, fontSize: 10),
+                        textStyle: const TextStyle(color: white, fontSize: 10),
                         // autoStart: yourTry == false ? true : false,
                         isReverse: true,
                         onComplete: () async {
@@ -1029,7 +1033,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                             whoseTimeout =
                                 whosTimeout.snapshot.value.toString();
 
-                            Future.delayed(Duration(seconds: 3))
+                            Future.delayed(const Duration(seconds: 3))
                                 .then((value) async {
                               istimerCompleted = false;
                               String? playersUserId = await getUidByPlayer(
@@ -1074,7 +1078,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                       )
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                       onPressed: () async {
                         showDialog(
@@ -1084,7 +1088,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                               return Alert(
                                 title: Text(
                                   utils.getTranslated(context, "aleart"),
-                                  style: TextStyle(color: white),
+                                  style: const TextStyle(color: white),
                                 ),
                                 isMultipleAction: true,
                                 defaultActionButtonName:
@@ -1092,7 +1096,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                                 onTapActionButton: () {},
                                 content: Text(
                                   utils.getTranslated(context, "areYouSure"),
-                                  style: TextStyle(color: white),
+                                  style: const TextStyle(color: white),
                                 ),
                                 multipleAction: [
                                   TextButton(
@@ -1149,7 +1153,8 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                                       },
                                       child: Text(
                                           utils.getTranslated(context, "yes"),
-                                          style: TextStyle(color: white))),
+                                          style:
+                                              const TextStyle(color: white))),
                                   TextButton(
                                       style: ButtonStyle(
                                           backgroundColor:
@@ -1165,12 +1170,12 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                                       },
                                       child: Text(
                                           utils.getTranslated(context, "no"),
-                                          style: TextStyle(color: white)))
+                                          style: const TextStyle(color: white)))
                                 ],
                               );
                             });
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.logout,
                         color: white,
                       ))
@@ -1194,11 +1199,12 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                 child: Center(
                   child: GridView.builder(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0),
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: 0),
                     itemCount: 9,
                     itemBuilder: (context, i) {
                       return GestureDetector(
@@ -1215,7 +1221,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                           }
                         },
                         child: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   image:
                                       AssetImage("assets/images/grid_box.png"),
@@ -1230,7 +1236,7 @@ class _MultiplayerScreenActivityState extends State<MultiplayerScreenActivity> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Padding(
                 padding:

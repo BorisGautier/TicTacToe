@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:tictactoe/models/gameHistoryModal.dart';
 import 'package:firebase_database/firebase_database.dart';
 

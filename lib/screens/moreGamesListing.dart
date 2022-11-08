@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:tictactoe/Helper/color.dart';
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/screens/moreGames.dart';
@@ -10,7 +12,7 @@ import '../Helper/utils.dart';
 import '../functions/advertisement.dart';
 
 class MoreGamesListing extends StatefulWidget {
-  MoreGamesListing({Key? key}) : super(key: key);
+  const MoreGamesListing({Key? key}) : super(key: key);
 
   @override
   State<MoreGamesListing> createState() => _MoreGamesListingState();
@@ -52,13 +54,13 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.games,
               size: 20,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0),
-              child: Text("${utils.getTranslated(context, "playMoreGames")}"),
+              child: Text(utils.getTranslated(context, "playMoreGames")),
             ),
           ],
         ),
@@ -85,9 +87,9 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
 
   getMoreGameList(BuildContext context) {
     gameListUI.clear();
-    gamesList.forEach((element) {
+    for (var element in gamesList) {
       gameListUI.add(getGame(element, context));
-    });
+    }
     return gameListUI;
   }
 
@@ -100,13 +102,13 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
             child: Container(
               // padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               height: 70,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: white,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Row(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(10),
                         bottomLeft: Radius.circular(10)),
                     child: Container(
@@ -116,7 +118,8 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
                             color: Colors.grey.withOpacity(0.4),
                             spreadRadius: 2,
                             blurRadius: 4,
-                            offset: Offset(4, 4), // changes position of shadow
+                            offset: const Offset(
+                                4, 4), // changes position of shadow
                           ),
                         ],
                       ),
@@ -127,7 +130,7 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
                         image: NetworkImage(
                           game.gameImage,
                         ),
-                        placeholder: AssetImage(
+                        placeholder: const AssetImage(
                           'assets/images/dora_placeholder.png',
                         ),
                       ),
@@ -155,15 +158,15 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           InkWell(
             child: Container(
                 width: MediaQuery.of(context).size.width * 0.20,
                 height: 70,
-                padding: EdgeInsets.all(2.0),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.all(2.0),
+                decoration: const BoxDecoration(
                     color: red,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: Center(

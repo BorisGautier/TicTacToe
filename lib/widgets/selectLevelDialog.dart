@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:tictactoe/Helper/color.dart';
 import 'package:tictactoe/Helper/constant.dart';
 import 'package:tictactoe/Helper/utils.dart';
@@ -8,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class SelectLevelDialog extends StatefulWidget {
   final String userSkin, opponentSkin;
-  SelectLevelDialog(
+  const SelectLevelDialog(
       {Key? key, required this.opponentSkin, required this.userSkin})
       : super(key: key);
 
@@ -88,14 +90,14 @@ class _SelectLevelDialogState extends State<SelectLevelDialog> {
                           widget.opponentSkin,
                           selectedLevelIndex)));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.skip_next,
               color: primaryColor,
               size: 20,
             ),
             label: Text(
               utils.getTranslated(context, "next"),
-              style: TextStyle(color: primaryColor, fontSize: 12),
+              style: const TextStyle(color: primaryColor, fontSize: 12),
             ))
       ],
     );
