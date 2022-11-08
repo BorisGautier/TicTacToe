@@ -21,7 +21,7 @@ class Auth {
     utils.setSfxValue();
 
     FirebaseAuth.instance.signInAnonymously().then((value) async {
-      var username = "guest_" + value.user!.uid;
+      var username = "guest_${value.user!.uid}";
       var profilepic = guestProfilePic;
 
       /*await value.user!

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:io';
 
 import 'package:tictactoe/Helper/constant.dart';
@@ -10,7 +12,7 @@ class Advertisement {
     if (wantGoogleAd) {
       InterstitialAd.load(
           adUnitId: interstitialAdID,
-          request: AdRequest(),
+          request: const AdRequest(),
           adLoadCallback: InterstitialAdLoadCallback(
               onAdLoaded: (InterstitialAd ad) {
                 interstitialAd = ad;
