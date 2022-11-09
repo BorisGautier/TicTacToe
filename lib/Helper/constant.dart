@@ -39,7 +39,7 @@ const String losegame = "wingame.mp3";
 const String dice = "click.mp3";
 const String backMusic = "music.mp3";
 
-const String appName = "TicTacToe";
+const String appName = "TicTacToe With Annette";
 
 const guestProfilePic =
     "https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/user.png?alt=media&token=0b90503c-e649-4784-9446-61bbf898562c";

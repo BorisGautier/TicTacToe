@@ -24,19 +24,29 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
   List<HTMLGames> gamesList = [
     HTMLGames(
         gameImage:
-            'https://firebasestorage.googleapis.com/v0/b/tictact-a37a5.appspot.com/o/More%20game%20images%2Fhextris.webp?alt=media&token=302e901c-6c88-478f-bb0b-2736ed6e34ab',
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/hextris.webp?alt=media&token=557e9a25-38a0-4d92-9d19-d592a6bf85b8',
         gameName: 'Hextris',
         gameURL: 'https://hextris.io/'),
     HTMLGames(
         gameImage:
-            'https://firebasestorage.googleapis.com/v0/b/tictact-a37a5.appspot.com/o/More%20game%20images%2Fclumsy-bird-open-source-game.webp?alt=media&token=344ad51f-4ca5-40ae-b71e-0a863f51e9d4',
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/clumsy-bird-open-source-game.webp?alt=media&token=fad3370e-c131-44c9-b083-abd7064daa97',
         gameName: 'Clumsy Bird',
         gameURL: 'https://ellisonleao.github.io/clumsy-bird/'),
     HTMLGames(
         gameImage:
-            'https://firebasestorage.googleapis.com/v0/b/tictact-a37a5.appspot.com/o/More%20game%20images%2Fpacman-html5-canvat.webp?alt=media&token=94941943-d863-4dbf-9467-a7fb53819c3f',
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/pacman-html5-canvat.webp?alt=media&token=c651bb85-60af-4e84-b2d2-fe72ab235966',
         gameName: 'Pacman',
         gameURL: 'https://pacman.platzh1rsch.ch/'),
+    HTMLGames(
+        gameImage:
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/cover.jpg?alt=media&token=60c0e4a0-2036-45d9-9f04-3aab6bcbaf2d',
+        gameName: '2048 Game',
+        gameURL: 'https://play2048.co/'),
+    HTMLGames(
+        gameImage:
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/unnamed.png?alt=media&token=a1c29bf6-82ca-42a7-a3d2-bb90a0b65d59',
+        gameName: 'Tetris',
+        gameURL: 'https://dionyziz.com/graphics/canvas-tetris/'),
   ];
 
   @override
