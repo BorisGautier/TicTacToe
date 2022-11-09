@@ -18,7 +18,9 @@ dependencies:
   circular_countdown_timer: ^0.2.0
   cupertino_icons: ^1.0.4
   firebase_auth: ^3.3.7
+  firebase_crashlytics: ^2.9.0
   firebase_database: ^9.0.6
+  firebase_performance: ^0.8.3+3
   firebase_storage: ^10.2.7
   flutter:
     sdk: flutter
