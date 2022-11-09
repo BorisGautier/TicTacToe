@@ -35,6 +35,10 @@ Welcome to My Project
   - Apple
   - Anonymous
 
+## Join us
+
+https://join.slack.com/t/tictactoegroupe/shared_invite/zt-1jfpwl53n-R16gzbptl3anRENve6HbPQ
+
 <a name="contribute"></a>
 
 ## Contribute

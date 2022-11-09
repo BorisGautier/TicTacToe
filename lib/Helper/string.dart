@@ -52,7 +52,7 @@ final Map userSkin = {
     'opponentSkin': "assets/images/cross_skin.png",
     'price': 200
   },
-  "Octagon": {
+  "Octogon": {
     'userSkin': "assets/images/octagon_skin.png",
     'opponentSkin': "assets/images/circle_skin.png",
     'price': 300

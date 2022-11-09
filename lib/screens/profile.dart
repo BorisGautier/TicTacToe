@@ -368,8 +368,8 @@ class _ProfileBodyState extends State<Profile> {
                           getTile(utils.getTranslated(context, "history"),
                               "history_icon", true),
                           if (!_auth.currentUser!.isAnonymous) ...[
-                            getTile(utils.getTranslated(context, "shop"),
-                                "shop_icon", true),
+                            /* getTile(utils.getTranslated(context, "shop"),
+                                "shop_icon", true),*/
                             getTile(utils.getTranslated(context, "skin"),
                                 "skin_icon", true),
                           ],
