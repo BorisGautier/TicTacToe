@@ -24,9 +24,10 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
   List<HTMLGames> gamesList = [
     HTMLGames(
         gameImage:
-            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/hextris.webp?alt=media&token=557e9a25-38a0-4d92-9d19-d592a6bf85b8',
-        gameName: 'Hextris',
-        gameURL: 'https://hextris.io/'),
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/8BallBilliardsClassicTeaser.jpg?alt=media&token=8e282731-ca12-4954-a78b-0bea734922d2',
+        gameName: 'Billard',
+        gameURL:
+            'https://games.cdn.famobi.com/html5games/0/8-ball-billiards-classic/v250/?fg_domain=play.famobi.com&fg_aid=A1000-100&fg_uid=82038e98-d4e1-46dd-8de9-1460d1395eab&fg_pid=5a106c0b-28b5-48e2-ab01-ce747dda340f&fg_beat=671&original_ref=https%3A%2F%2Fhtml5games.com%2F'),
     HTMLGames(
         gameImage:
             'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/clumsy-bird-open-source-game.webp?alt=media&token=fad3370e-c131-44c9-b083-abd7064daa97',
@@ -39,14 +40,16 @@ class _MoreGamesListingState extends State<MoreGamesListing> {
         gameURL: 'https://pacman.platzh1rsch.ch/'),
     HTMLGames(
         gameImage:
-            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/cover.jpg?alt=media&token=60c0e4a0-2036-45d9-9f04-3aab6bcbaf2d',
-        gameName: '2048 Game',
-        gameURL: 'https://play2048.co/'),
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/ElementBlocksTeaser.jpg?alt=media&token=8596a396-5342-4ed2-806b-f0044d95831f',
+        gameName: 'Element Block',
+        gameURL:
+            'https://games.cdn.famobi.com/html5games/e/element-blocks/v290/?fg_domain=play.famobi.com&fg_aid=A1000-100&fg_uid=8c70b6c7-5792-4c40-b891-496eef2fb5ed&fg_pid=5a106c0b-28b5-48e2-ab01-ce747dda340f&fg_beat=649&original_ref=https%3A%2F%2Fhtml5games.com%2F'),
     HTMLGames(
         gameImage:
-            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/unnamed.png?alt=media&token=a1c29bf6-82ca-42a7-a3d2-bb90a0b65d59',
-        gameName: 'Tetris',
-        gameURL: 'https://dionyziz.com/graphics/canvas-tetris/'),
+            'https://firebasestorage.googleapis.com/v0/b/tictactoe-50abc.appspot.com/o/BubbleTower3dTeaser.jpg?alt=media&token=6e451dd7-f9ac-4aa8-a02e-8df569563d72',
+        gameName: 'Bubble Tower',
+        gameURL:
+            'https://games.cdn.famobi.com/html5games/b/bubble-tower-3d/v050/?fg_domain=play.famobi.com&fg_aid=A1000-100&fg_uid=1385d98a-b5f2-4339-bce7-b99a8dd2e8b0&fg_pid=5a106c0b-28b5-48e2-ab01-ce747dda340f&fg_beat=668&original_ref=https%3A%2F%2Fhtml5games.com%2F'),
   ];
 
   @override
