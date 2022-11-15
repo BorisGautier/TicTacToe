@@ -540,6 +540,8 @@ class _FindingPlayerScreenState extends State<FindingPlayerScreen>
                                       .child(_temp!)
                                       .update({"status": "closed"});
                                   Dialoge.removeChild("Game", _temp);
+                                  oppTimer!.cancel();
+                                  Navigator.pop(context);
                                 }
                                 oppTimer!.cancel();
                                 Navigator.pop(context);
