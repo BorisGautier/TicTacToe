@@ -47,10 +47,10 @@ const guestProfilePic =
 final List multiplayerEntryAmount = [25, 50, 100, 200];
 final List<String> typeOfLevel = ["Easy", "Medium", "Hard"];
 
-final List noOfRound = ["UN", "TROIS", "CINQ", "SEPT"];
+final List noOfRound = ["1", "3", "5", "7"];
 final List noOfRoundDigit = [1, 3, 5, 7];
 
-const countdowntime = 20;
+const countdowntime = 7;
 //--Add custom default images to images/ folder
 const defaultXskin = "assets/images/cross_skin.png";
 
